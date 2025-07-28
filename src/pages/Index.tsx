@@ -2,14 +2,34 @@ import React, { useState } from 'react';
 import { Header } from '@/components/Header';
 import { TimezoneWidget } from '@/components/TimezoneWidget';
 import { CalendarWidget } from '@/components/CalendarWidget';
+import { TaskWidget } from '@/components/TaskWidget';
 import { TimelineBar } from '@/components/TimelineBar';
 import { StatusIndicators } from '@/components/StatusIndicators';
 
 const Index = () => {
   const [isCalendarOpen, setIsCalendarOpen] = useState(false);
+  const [isTaskOpen, setIsTaskOpen] = useState(false);
 
   const handleCalendarToggle = () => {
-    setIsCalendarOpen(!isCalendarOpen);
+    if (isCalendarOpen) {
+      // If calendar is currently open, just close it
+      setIsCalendarOpen(false);
+    } else {
+      // If calendar is closed, open it and close task
+      setIsCalendarOpen(true);
+      setIsTaskOpen(false);
+    }
+  };
+
+  const handleTaskToggle = () => {
+    if (isTaskOpen) {
+      // If task is currently open, just close it
+      setIsTaskOpen(false);
+    } else {
+      // If task is closed, open it and close calendar
+      setIsTaskOpen(true);
+      setIsCalendarOpen(false);
+    }
   };
   
   return (
@@ -23,13 +43,27 @@ const Index = () => {
       
       {/* Full Width Navbar */}
       <div className="w-full z-20 relative">
-        <Header onCalendarToggle={handleCalendarToggle} isCalendarOpen={isCalendarOpen} />
+        <Header 
+          onCalendarToggle={handleCalendarToggle} 
+          onTaskToggle={handleTaskToggle}
+          isCalendarOpen={isCalendarOpen} 
+          isTaskOpen={isTaskOpen}
+        />
         
         {/* Calendar Dropdown - Positioned just below navbar on the right */}
         {isCalendarOpen && (
           <div className="absolute top-full right-0 z-15">
-            <div className="px-3">
+            <div className="px-3 py-2">
               <CalendarWidget />
+            </div>
+          </div>
+        )}
+
+        {/* Task Dropdown - Positioned just below navbar on the right */}
+        {isTaskOpen && (
+          <div className="absolute top-full right-0 z-15">
+            <div className="px-3 py-2">
+              <TaskWidget />
             </div>
           </div>
         )}

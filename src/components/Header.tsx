@@ -2,10 +2,17 @@ import React from 'react';
 
 interface HeaderProps {
   onCalendarToggle: () => void;
+  onTaskToggle: () => void;
   isCalendarOpen?: boolean;
+  isTaskOpen?: boolean;
 }
 
-export const Header: React.FC<HeaderProps> = ({ onCalendarToggle, isCalendarOpen = false }) => {
+export const Header: React.FC<HeaderProps> = ({ 
+  onCalendarToggle, 
+  onTaskToggle, 
+  isCalendarOpen = false, 
+  isTaskOpen = false 
+}) => {
   const handleSignIn = () => {
     console.log('Sign in clicked');
   };
@@ -45,19 +52,28 @@ export const Header: React.FC<HeaderProps> = ({ onCalendarToggle, isCalendarOpen
                 </div>
               </button>
 
-              {/* Second Button with Notification Indicator */}
+              {/* Second Button - Task with Notification Indicator */}
               <div className="box-border content-stretch flex flex-col gap-1.5 items-center justify-center p-0 relative shrink-0 w-10">
-                <button className="bg-[#181818] h-10 relative rounded-[9999px] shrink-0 w-full hover:bg-[#202020] transition-colors">
+                <button 
+                  onClick={onTaskToggle}
+                  className={`h-10 relative rounded-[9999px] shrink-0 w-full transition-colors ${
+                    isTaskOpen 
+                      ? 'bg-[#202020] hover:bg-[#252525]' 
+                      : 'bg-[#181818] hover:bg-[#202020]'
+                  }`}
+                >
                   <div className="absolute left-1/2 size-5 top-1/2 translate-x-[-50%] translate-y-[-50%]">
                     <img
-                      alt="Settings button"
+                      alt="Task button"
                       className="block max-w-none size-full"
                       src="http://localhost:3845/assets/17403234bc9472500d39bbd60712e383e9852d35.svg"
                     />
                   </div>
                 </button>
-                {/* Notification Indicator */}
-                <div className="absolute bg-green-500 left-[-30.77px] rounded-[9999px] size-1.5 top-[46px]" />
+                {/* Notification Indicator - show when task is selected */}
+                {isTaskOpen && (
+                  <div className="absolute bg-green-500 left-[-30.77px] rounded-[9999px] size-1.5 top-[46px]" />
+                )}
               </div>
 
               {/* Third Button - Music */}
