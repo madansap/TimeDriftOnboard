@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { Header } from '@/components/Header';
 import { TimezoneWidget } from '@/components/TimezoneWidget';
 import { CalendarWidget } from '@/components/CalendarWidget';
@@ -6,6 +6,11 @@ import { TimelineBar } from '@/components/TimelineBar';
 import { StatusIndicators } from '@/components/StatusIndicators';
 
 const Index = () => {
+  const [isCalendarOpen, setIsCalendarOpen] = useState(false);
+
+  const handleCalendarToggle = () => {
+    setIsCalendarOpen(!isCalendarOpen);
+  };
   return (
     <div className="justify-center items-stretch flex flex-col overflow-hidden">
       <div className="flex flex-col relative min-h-[900px] w-full overflow-hidden max-md:max-w-full">
@@ -50,7 +55,14 @@ const Index = () => {
             {/* Main Content */}
             <main className="w-[81%] ml-5 max-md:w-full max-md:ml-0">
               <div className="relative flex w-full flex-col items-stretch max-md:max-w-full">
-                <Header />
+                <Header onCalendarToggle={handleCalendarToggle} />
+                
+                {/* Calendar Dropdown */}
+                {isCalendarOpen && (
+                  <div className="absolute top-16 right-6 z-50">
+                    <CalendarWidget />
+                  </div>
+                )}
                 
                 <div className="z-10 w-[637px] max-w-full -mt-20">
                   <div className="gap-5 flex max-md:flex-col max-md:items-stretch">
@@ -60,7 +72,7 @@ const Index = () => {
                     
                     <div className="w-4/5 ml-5 max-md:w-full max-md:ml-0">
                       <div className="flex min-h-[898px] grow flex-col items-stretch justify-center pt-[72px] pb-56 px-4 max-md:mt-10 max-md:pb-[100px]">
-                        <CalendarWidget />
+                        {/* Calendar removed from here since it's now a dropdown */}
                       </div>
                     </div>
                   </div>
