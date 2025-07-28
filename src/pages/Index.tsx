@@ -28,7 +28,7 @@ const Index = () => {
         {/* Calendar Dropdown - Positioned just below navbar on the right */}
         {isCalendarOpen && (
           <div className="absolute top-full right-0 z-15">
-            <div className="px-3 py-2">
+            <div className="px-3">
               <CalendarWidget />
             </div>
           </div>

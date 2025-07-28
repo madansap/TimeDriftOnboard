@@ -36,7 +36,7 @@ export const Header: React.FC<HeaderProps> = ({ onCalendarToggle, isCalendarOpen
                 onClick={onCalendarToggle}
                 className={`relative rounded-[9999px] shrink-0 size-10 transition-colors ${
                   isCalendarOpen 
-                    ? 'bg-green-500 hover:bg-green-600' 
+                    ? 'bg-[#202020] hover:bg-[#252525]' 
                     : 'bg-[#181818] hover:bg-[#202020]'
                 }`}
               >
