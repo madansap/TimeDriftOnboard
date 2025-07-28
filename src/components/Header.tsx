@@ -20,14 +20,14 @@ export const Header: React.FC<HeaderProps> = ({ onCalendarToggle }) => {
         
         <nav className="self-stretch flex min-w-60 items-center gap-4 my-auto">
           <div className="self-stretch flex items-center gap-2 my-auto">
-            <button className="aspect-[1] object-contain w-10 self-stretch shrink-0 my-auto">
+            <button className="aspect-[1] object-contain w-10 self-stretch shrink-0 my-auto rounded-lg hover:bg-muted transition-colors duration-200">
               <img
                 src="https://api.builder.io/api/v1/image/assets/ce880fcfdb934a18b6d97dead3ad8ee9/49585cb90d4bb27d90cb35fb01f30ba042f73657?placeholderIfAbsent=true"
                 className="w-full h-full"
                 alt="Navigation button"
               />
             </button>
-            <button className="self-stretch flex flex-col items-stretch justify-center w-10 my-auto">
+            <button className="self-stretch flex flex-col items-stretch justify-center w-10 my-auto rounded-lg hover:bg-muted transition-colors duration-200">
               <img
                 src="https://api.builder.io/api/v1/image/assets/ce880fcfdb934a18b6d97dead3ad8ee9/663e9ce3f182b6cd56604d89750a01a237597948?placeholderIfAbsent=true"
                 className="aspect-[1] object-contain w-10"
@@ -36,7 +36,7 @@ export const Header: React.FC<HeaderProps> = ({ onCalendarToggle }) => {
             </button>
             <button 
               onClick={onCalendarToggle}
-              className="aspect-[1] object-contain w-10 self-stretch shrink-0 my-auto"
+              className="aspect-[1] object-contain w-10 self-stretch shrink-0 my-auto rounded-lg hover:bg-muted transition-colors duration-200"
             >
               <img
                 src="https://api.builder.io/api/v1/image/assets/ce880fcfdb934a18b6d97dead3ad8ee9/acd048122c36fe52a47c9f7d134825a960e279c4?placeholderIfAbsent=true"
@@ -47,17 +47,17 @@ export const Header: React.FC<HeaderProps> = ({ onCalendarToggle }) => {
           </div>
           
           <div className="self-stretch flex items-center gap-2 my-auto pl-4">
-            <button className="justify-center items-center bg-[color(display-p3_0.0941_0.0941_0.0941)] self-stretch flex min-h-10 flex-col w-10 h-10 my-auto rounded-full hover:bg-[color(display-p3_0.1255_0.1255_0.1255)] transition-colors">
+            <button className="justify-center items-center bg-muted self-stretch flex min-h-10 flex-col w-10 h-10 my-auto rounded-full hover:bg-accent transition-colors duration-200">
               <img
                 src="https://api.builder.io/api/v1/image/assets/ce880fcfdb934a18b6d97dead3ad8ee9/aa76d8babd9991607aa941529cc076839b0a6034?placeholderIfAbsent=true"
-                className="aspect-[1] object-contain w-4 fill-[color(display-p3_0.4549_0.4549_0.4549)]"
+                className="aspect-[1] object-contain w-4"
                 alt="User menu"
               />
             </button>
             
             <button
               onClick={handleSignIn}
-              className="justify-center items-stretch border border-[color(display-p3_0.0941_0.0941_0.0941)] backdrop-blur-[2px] bg-[color(display-p3_0.1255_0.1255_0.1255)] self-stretch flex gap-[9px] text-[13px] text-white font-medium text-center leading-loose w-[101px] my-auto px-[17px] py-2.5 rounded-full border-solid hover:bg-[color(display-p3_0.1569_0.1569_0.1569)] transition-colors"
+              className="justify-center items-stretch border border-border backdrop-blur-[2px] bg-secondary self-stretch flex gap-[9px] text-[13px] text-secondary-foreground font-medium text-center leading-loose w-[101px] my-auto px-[17px] py-2.5 rounded-full border-solid hover:bg-accent hover:text-accent-foreground transition-colors duration-200"
             >
               <img
                 src="https://api.builder.io/api/v1/image/assets/ce880fcfdb934a18b6d97dead3ad8ee9/dfda09c097a50a19b7a901550cd1187a11f36706?placeholderIfAbsent=true"
