@@ -2,72 +2,104 @@ import React from 'react';
 
 interface HeaderProps {
   onCalendarToggle: () => void;
+  isCalendarOpen?: boolean;
 }
 
-export const Header: React.FC<HeaderProps> = ({ onCalendarToggle }) => {
+export const Header: React.FC<HeaderProps> = ({ onCalendarToggle, isCalendarOpen = false }) => {
   const handleSignIn = () => {
     console.log('Sign in clicked');
   };
 
   return (
-    <header className="w-full pt-2 pb-8 px-2.5 max-md:max-w-full">
-      <div className="flex w-full items-center gap-[40px_100px] justify-between flex-wrap max-md:max-w-full">
-        <img
-          src="https://api.builder.io/api/v1/image/assets/ce880fcfdb934a18b6d97dead3ad8ee9/e0221e1603509b040868fca620ea824dddcf09c8?placeholderIfAbsent=true"
-          className="aspect-[3.82] object-contain w-[145px] self-stretch shrink-0 my-auto"
-          alt="Application logo"
-        />
-        
-        <nav className="self-stretch flex min-w-60 items-center gap-4 my-auto">
-          <div className="self-stretch flex items-center gap-2 my-auto">
-            <button className="aspect-[1] object-contain w-10 self-stretch shrink-0 my-auto">
-              <img
-                src="https://api.builder.io/api/v1/image/assets/ce880fcfdb934a18b6d97dead3ad8ee9/49585cb90d4bb27d90cb35fb01f30ba042f73657?placeholderIfAbsent=true"
-                className="w-full h-full"
-                alt="Navigation button"
-              />
-            </button>
-            <button className="self-stretch flex flex-col items-stretch justify-center w-10 my-auto">
-              <img
-                src="https://api.builder.io/api/v1/image/assets/ce880fcfdb934a18b6d97dead3ad8ee9/663e9ce3f182b6cd56604d89750a01a237597948?placeholderIfAbsent=true"
-                className="aspect-[1] object-contain w-10"
-                alt="Settings"
-              />
-            </button>
-            <button 
-              onClick={onCalendarToggle}
-              className="aspect-[1] object-contain w-10 self-stretch shrink-0 my-auto"
-            >
-              <img
-                src="https://api.builder.io/api/v1/image/assets/ce880fcfdb934a18b6d97dead3ad8ee9/acd048122c36fe52a47c9f7d134825a960e279c4?placeholderIfAbsent=true"
-                className="w-full h-full"
-                alt="Menu"
-              />
-            </button>
+    <header className="w-full">
+      <div className="box-border content-stretch flex flex-col gap-6 items-start justify-start pb-6 pt-2 px-3 relative w-full">
+        <div className="box-border content-stretch flex flex-row items-center justify-between p-0 relative shrink-0 w-full">
+          {/* Logo */}
+          <div className="h-[38.06px] overflow-clip relative shrink-0 w-[145px]">
+            <div className="absolute h-[38.06px] left-0 overflow-clip top-0 w-[145px]">
+              <div className="absolute h-[38.072px] left-1/2 top-1/2 translate-x-[-50%] translate-y-[-50%] w-[145px]">
+                <img
+                  alt="Time Drift Logo"
+                  className="block max-w-none size-full"
+                  src="http://localhost:3845/assets/5b2d9f7da6ae662686a71e1677e7ba6748924f6a.svg"
+                />
+              </div>
+            </div>
           </div>
-          
-          <div className="self-stretch flex items-center gap-2 my-auto pl-4">
-            <button className="justify-center items-center bg-[color(display-p3_0.0941_0.0941_0.0941)] self-stretch flex min-h-10 flex-col w-10 h-10 my-auto rounded-full hover:bg-[color(display-p3_0.1255_0.1255_0.1255)] transition-colors">
-              <img
-                src="https://api.builder.io/api/v1/image/assets/ce880fcfdb934a18b6d97dead3ad8ee9/aa76d8babd9991607aa941529cc076839b0a6034?placeholderIfAbsent=true"
-                className="aspect-[1] object-contain w-4 fill-[color(display-p3_0.4549_0.4549_0.4549)]"
-                alt="User menu"
-              />
-            </button>
-            
-            <button
-              onClick={handleSignIn}
-              className="justify-center items-stretch border border-[color(display-p3_0.0941_0.0941_0.0941)] backdrop-blur-[2px] bg-[color(display-p3_0.1255_0.1255_0.1255)] self-stretch flex gap-[9px] text-[13px] text-white font-medium text-center leading-loose w-[101px] my-auto px-[17px] py-2.5 rounded-full border-solid hover:bg-[color(display-p3_0.1569_0.1569_0.1569)] transition-colors"
-            >
-              <img
-                src="https://api.builder.io/api/v1/image/assets/ce880fcfdb934a18b6d97dead3ad8ee9/dfda09c097a50a19b7a901550cd1187a11f36706?placeholderIfAbsent=true"
-                className="aspect-[1] object-contain w-[18px] shrink-0"
-                alt="Sign in icon"
-              />
-              <span>Sign In</span>
-            </button>
+
+          {/* Navigation Buttons */}
+          <div className="box-border content-stretch flex flex-row gap-4 items-center justify-start p-0 relative shrink-0">
+            {/* Left Button Group */}
+            <div className="box-border content-stretch flex flex-row gap-2 items-center justify-start p-0 relative shrink-0">
+              {/* First Button - Calendar */}
+              <button 
+                onClick={onCalendarToggle}
+                className={`relative rounded-[9999px] shrink-0 size-10 transition-colors ${
+                  isCalendarOpen 
+                    ? 'bg-green-500 hover:bg-green-600' 
+                    : 'bg-[#181818] hover:bg-[#202020]'
+                }`}
+              >
+                <div className="absolute left-1/2 size-5 top-1/2 translate-x-[-50%] translate-y-[-50%]">
+                  <img alt="Calendar button" className="block max-w-none size-full" src="http://localhost:3845/assets/801c9d48ab54807c2002344b0d8e7f137ca530a6.svg" />
+                </div>
+              </button>
+
+              {/* Second Button with Notification Indicator */}
+              <div className="box-border content-stretch flex flex-col gap-1.5 items-center justify-center p-0 relative shrink-0 w-10">
+                <button className="bg-[#181818] h-10 relative rounded-[9999px] shrink-0 w-full hover:bg-[#202020] transition-colors">
+                  <div className="absolute left-1/2 size-5 top-1/2 translate-x-[-50%] translate-y-[-50%]">
+                    <img
+                      alt="Settings button"
+                      className="block max-w-none size-full"
+                      src="http://localhost:3845/assets/17403234bc9472500d39bbd60712e383e9852d35.svg"
+                    />
+                  </div>
+                </button>
+                {/* Notification Indicator */}
+                <div className="absolute bg-green-500 left-[-30.77px] rounded-[9999px] size-1.5 top-[46px]" />
+              </div>
+
+              {/* Third Button - Music */}
+              <button className="bg-[#181818] relative rounded-[9999px] shrink-0 size-10 hover:bg-[#202020] transition-colors">
+                <div className="absolute left-1/2 size-5 top-1/2 translate-x-[-50%] translate-y-[-50%]">
+                  <img alt="Music button" className="block max-w-none size-full" src="http://localhost:3845/assets/66a1a597d2925649177045d1f238ee4962c8a4c7.svg" />
+                </div>
+              </button>
+            </div>
+
+            {/* Vertical Border Separator */}
+            <div className="box-border content-stretch flex flex-row gap-2 items-center justify-start pl-4 pr-0 py-0 relative shrink-0">
+              <div className="absolute border-[0px_0px_0px_1px] border-[rgba(255,255,255,0.2)] border-solid inset-0 pointer-events-none" />
+              
+              {/* Dialog Button */}
+              <button className="relative shrink-0 size-10 hover:bg-[#202020] rounded-full transition-colors">
+                <img
+                  alt="Dialog button"
+                  className="block max-w-none size-full"
+                  src="http://localhost:3845/assets/b8397b36113b9c397e75422fa15ea040c64ef2ab.svg"
+                />
+              </button>
+
+              {/* Sign In Button */}
+              <button
+                onClick={handleSignIn}
+                className="backdrop-blur-[2px] backdrop-filter bg-[#202020] h-[38px] relative rounded-[9999px] shrink-0 w-[101.23px] hover:bg-[#252525] transition-colors"
+              >
+                <div className="absolute border border-[#181818] border-solid inset-0 pointer-events-none rounded-[9999px]" />
+                <div className="absolute left-[17px] size-[18px] top-1/2 translate-y-[-50%]">
+                  <img alt="Sign in icon" className="block max-w-none size-full" src="http://localhost:3845/assets/fd83e02621c956fa535b000a1dd9598e45fa8369.svg" />
+                </div>
+                <div
+                  className="absolute flex flex-col font-['Inter:Medium',_sans-serif] font-medium h-5 justify-center leading-[0] not-italic text-[#ffffff] text-[12.688px] text-center top-[19px] translate-x-[-50%] translate-y-[-50%] w-[41.43px]"
+                  style={{ left: "calc(50% + 13.1px)" }}
+                >
+                  <p className="block leading-[20px]">Sign In</p>
+                </div>
+              </button>
+            </div>
           </div>
-        </nav>
+        </div>
       </div>
     </header>
   );
