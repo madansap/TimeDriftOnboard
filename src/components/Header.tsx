@@ -10,62 +10,63 @@ export const Header: React.FC<HeaderProps> = ({ onCalendarToggle }) => {
   };
 
   return (
-    <header className="w-full pt-6 pb-6 px-6">
-      <div className="flex w-full items-center justify-between">
-        {/* Logo */}
-        <div className="flex items-center">
-          <h1 className="text-white text-lg font-bold tracking-wider">TIMEDRIFT</h1>
-        </div>
+    <header className="w-full pt-2 pb-8 px-2.5 max-md:max-w-full">
+      <div className="flex w-full items-center gap-[40px_100px] justify-between flex-wrap max-md:max-w-full">
+        <img
+          src="https://api.builder.io/api/v1/image/assets/ce880fcfdb934a18b6d97dead3ad8ee9/e0221e1603509b040868fca620ea824dddcf09c8?placeholderIfAbsent=true"
+          className="aspect-[3.82] object-contain w-[145px] self-stretch shrink-0 my-auto"
+          alt="Application logo"
+        />
         
-        {/* Right Navigation */}
-        <nav className="flex items-center gap-4">
-          {/* Icon Buttons */}
-          <div className="flex items-center gap-3">
-            <button className="w-6 h-6 flex items-center justify-center text-white/70 hover:text-white transition-colors">
-              <svg className="w-5 h-5" fill="currentColor" viewBox="0 0 20 20">
-                <path fillRule="evenodd" d="M3 5a1 1 0 011-1h12a1 1 0 110 2H4a1 1 0 01-1-1zM3 10a1 1 0 011-1h12a1 1 0 110 2H4a1 1 0 01-1-1zM3 15a1 1 0 011-1h12a1 1 0 110 2H4a1 1 0 01-1-1z" clipRule="evenodd" />
-              </svg>
+        <nav className="self-stretch flex min-w-60 items-center gap-4 my-auto">
+          <div className="self-stretch flex items-center gap-2 my-auto">
+            <button className="aspect-[1] object-contain w-10 self-stretch shrink-0 my-auto">
+              <img
+                src="https://api.builder.io/api/v1/image/assets/ce880fcfdb934a18b6d97dead3ad8ee9/49585cb90d4bb27d90cb35fb01f30ba042f73657?placeholderIfAbsent=true"
+                className="w-full h-full"
+                alt="Navigation button"
+              />
             </button>
-            
-            <button className="w-6 h-6 flex items-center justify-center text-white/70 hover:text-white transition-colors">
-              <svg className="w-5 h-5" fill="currentColor" viewBox="0 0 20 20">
-                <path fillRule="evenodd" d="M11.49 3.17c-.38-1.56-2.6-1.56-2.98 0a1.532 1.532 0 01-2.286.948c-1.372-.836-2.942.734-2.106 2.106.54.886.061 2.042-.947 2.287-1.561.379-1.561 2.6 0 2.978a1.532 1.532 0 01.947 2.287c-.836 1.372.734 2.942 2.106 2.106a1.532 1.532 0 012.287.947c.379 1.561 2.6 1.561 2.978 0a1.533 1.533 0 012.287-.947c1.372.836 2.942-.734 2.106-2.106a1.533 1.533 0 01.947-2.287c1.561-.379 1.561-2.6 0-2.978a1.532 1.532 0 01-.947-2.287c.836-1.372-.734-2.942-2.106-2.106a1.532 1.532 0 01-2.287-.947zM10 13a3 3 0 100-6 3 3 0 000 6z" clipRule="evenodd" />
-              </svg>
+            <button className="self-stretch flex flex-col items-stretch justify-center w-10 my-auto">
+              <img
+                src="https://api.builder.io/api/v1/image/assets/ce880fcfdb934a18b6d97dead3ad8ee9/663e9ce3f182b6cd56604d89750a01a237597948?placeholderIfAbsent=true"
+                className="aspect-[1] object-contain w-10"
+                alt="Settings"
+              />
             </button>
-            
             <button 
               onClick={onCalendarToggle}
-              className="w-6 h-6 flex items-center justify-center text-white/70 hover:text-white transition-colors"
+              className="aspect-[1] object-contain w-10 self-stretch shrink-0 my-auto"
             >
-              <svg className="w-5 h-5" fill="currentColor" viewBox="0 0 20 20">
-                <path fillRule="evenodd" d="M6 2a1 1 0 00-1 1v1H4a2 2 0 00-2 2v10a2 2 0 002 2h12a2 2 0 002-2V6a2 2 0 00-2-2h-1V3a1 1 0 10-2 0v1H7V3a1 1 0 00-1-1zm0 5a1 1 0 000 2h8a1 1 0 100-2H6z" clipRule="evenodd" />
-              </svg>
-            </button>
-            
-            <button className="w-6 h-6 flex items-center justify-center text-white/70 hover:text-white transition-colors">
-              <svg className="w-5 h-5" fill="currentColor" viewBox="0 0 20 20">
-                <path fillRule="evenodd" d="M3 4a1 1 0 011-1h4a1 1 0 010 2H6.414l2.293 2.293a1 1 0 11-1.414 1.414L5 6.414V8a1 1 0 01-2 0V4zm9 1a1 1 0 010-2h4a1 1 0 011 1v4a1 1 0 01-2 0V6.414l-2.293 2.293a1 1 0 11-1.414-1.414L13.586 5H12zm-9 7a1 1 0 012 0v1.586l2.293-2.293a1 1 0 111.414 1.414L6.414 15H8a1 1 0 010 2H4a1 1 0 01-1-1v-4zm13-1a1 1 0 011 1v4a1 1 0 01-1 1h-4a1 1 0 010-2h1.586l-2.293-2.293a1 1 0 111.414-1.414L15 13.586V12a1 1 0 011-1z" clipRule="evenodd" />
-              </svg>
+              <img
+                src="https://api.builder.io/api/v1/image/assets/ce880fcfdb934a18b6d97dead3ad8ee9/acd048122c36fe52a47c9f7d134825a960e279c4?placeholderIfAbsent=true"
+                className="w-full h-full"
+                alt="Menu"
+              />
             </button>
           </div>
           
-          {/* User Avatar */}
-          <button className="w-8 h-8 bg-white/10 rounded-full flex items-center justify-center hover:bg-white/20 transition-colors">
-            <svg className="w-4 h-4 text-white/70" fill="currentColor" viewBox="0 0 20 20">
-              <path fillRule="evenodd" d="M10 9a3 3 0 100-6 3 3 0 000 6zm-7 9a7 7 0 1114 0H3z" clipRule="evenodd" />
-            </svg>
-          </button>
-          
-          {/* Sign In Button */}
-          <button
-            onClick={handleSignIn}
-            className="flex items-center gap-2 bg-white/10 border border-white/20 text-white text-sm font-medium px-4 py-2 rounded-full hover:bg-white/20 transition-colors"
-          >
-            <svg className="w-4 h-4" fill="currentColor" viewBox="0 0 20 20">
-              <path fillRule="evenodd" d="M3 3a1 1 0 011 1v12a1 1 0 11-2 0V4a1 1 0 011-1zm7.707 3.293a1 1 0 010 1.414L9.414 9H17a1 1 0 110 2H9.414l1.293 1.293a1 1 0 01-1.414 1.414l-3-3a1 1 0 010-1.414l3-3a1 1 0 011.414 0z" clipRule="evenodd" />
-            </svg>
-            <span>Sign In</span>
-          </button>
+          <div className="self-stretch flex items-center gap-2 my-auto pl-4">
+            <button className="justify-center items-center bg-[color(display-p3_0.0941_0.0941_0.0941)] self-stretch flex min-h-10 flex-col w-10 h-10 my-auto rounded-full hover:bg-[color(display-p3_0.1255_0.1255_0.1255)] transition-colors">
+              <img
+                src="https://api.builder.io/api/v1/image/assets/ce880fcfdb934a18b6d97dead3ad8ee9/aa76d8babd9991607aa941529cc076839b0a6034?placeholderIfAbsent=true"
+                className="aspect-[1] object-contain w-4 fill-[color(display-p3_0.4549_0.4549_0.4549)]"
+                alt="User menu"
+              />
+            </button>
+            
+            <button
+              onClick={handleSignIn}
+              className="justify-center items-stretch border border-[color(display-p3_0.0941_0.0941_0.0941)] backdrop-blur-[2px] bg-[color(display-p3_0.1255_0.1255_0.1255)] self-stretch flex gap-[9px] text-[13px] text-white font-medium text-center leading-loose w-[101px] my-auto px-[17px] py-2.5 rounded-full border-solid hover:bg-[color(display-p3_0.1569_0.1569_0.1569)] transition-colors"
+            >
+              <img
+                src="https://api.builder.io/api/v1/image/assets/ce880fcfdb934a18b6d97dead3ad8ee9/dfda09c097a50a19b7a901550cd1187a11f36706?placeholderIfAbsent=true"
+                className="aspect-[1] object-contain w-[18px] shrink-0"
+                alt="Sign in icon"
+              />
+              <span>Sign In</span>
+            </button>
+          </div>
         </nav>
       </div>
     </header>
