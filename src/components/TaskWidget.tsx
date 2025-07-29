@@ -54,10 +54,10 @@ export const TaskWidget: React.FC = () => {
               <div className="self-stretch flex items-center gap-2 my-auto">
                 <ArrowsOut className="w-4 h-4 text-white" weight="regular" />
                 <span>Add New Task</span>
-              </div>
-            </button>
           </div>
-          
+            </button>
+      </div>
+
           <div className="text-xs text-[#b3b3b3] font-medium text-center leading-loose pt-2">
             <ul className="space-y-2">
               <li>Track daily activities</li>

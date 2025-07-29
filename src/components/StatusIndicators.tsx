@@ -4,22 +4,22 @@ import { CheckCircle, Monitor, Clock, Calendar, Info } from '@phosphor-icons/rea
 export const StatusIndicators: React.FC = () => {
   return (
     <div className="self-stretch flex min-w-60 items-stretch gap-2 text-[rgba(116,116,116,1)] flex-wrap my-auto max-md:max-w-full">
-              <div className="flex items-stretch gap-1.5 text-[10px] font-bold grow shrink basis-auto">
-          <div className="flex min-h-7 items-center text-green-400 uppercase leading-loose justify-center rounded-lg">
-            <div className="self-stretch flex items-center gap-1 my-auto px-1">
+      <div className="flex items-stretch gap-1.5 text-[10px] font-bold grow shrink basis-auto">
+        <div className="flex min-h-7 items-center text-green-400 uppercase leading-loose justify-center rounded-lg">
+          <div className="self-stretch flex items-center gap-1 my-auto px-1">
               <CheckCircle className="w-3 h-3 text-green-400" weight="regular" />
-              <span>Normal Mode</span>
-            </div>
+            <span>Normal Mode</span>
           </div>
+        </div>
         
         <div className="text-base font-medium whitespace-nowrap my-auto">•</div>
         
-                  <div className="flex min-h-7 items-center text-white leading-loose justify-center rounded-lg">
-            <div className="self-stretch flex items-center gap-1 my-auto px-1">
+        <div className="flex min-h-7 items-center text-white leading-loose justify-center rounded-lg">
+          <div className="self-stretch flex items-center gap-1 my-auto px-1">
               <Monitor className="w-3 h-3 text-white" weight="regular" />
-              <span>30 FPS</span>
-            </div>
+            <span>30 FPS</span>
           </div>
+        </div>
         
         <div className="text-base font-medium whitespace-nowrap my-auto">•</div>
         

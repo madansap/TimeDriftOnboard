@@ -1,0 +1,95 @@
+# Onboarding PRD
+
+## Timedrift isn’t a productivity tool. It’s an ambient, aesthetic layer for your day. It shows your timezones, your timeline, and your calendar—no clicks, no clutter. Keep it on a second monitor, use it as a screensaver, or replace your new tab. It’s for people who care about how their workspace *feels.*
+
+**Zero-friction onboarding** but with *just enough* context to not confuse new users.
+
+**Flow:**
+
+- Fade-in intro overlay → quick 3 hints → done
+- Total time: **5 seconds**
+
+---
+
+### **Step 1: Soft Overlay Intro**
+
+*(background blurs slightly, overlay appears)*
+
+**Title:** *Welcome to Timedrift*
+
+**Subtitle:** *Your calm daily dashboard to feel time differently.*
+
+**Button:** *Show me around →*
+
+---
+
+### **Step 2: Highlight Left Panel (Timezones)**
+
+Zoom/focus left panel → darken rest.
+
+> Your Timezones
+> 
+> 
+> See local & global time instantly.
+> 
+> *Rename them for people you care about → “Rabin’s Time.”*
+> 
+
+Next →
+
+---
+
+### **Step 3: Highlight Right Panel (Calendar)**
+
+Zoom/focus right panel.
+
+> Your Calendar, Synced
+> 
+> 
+> Today’s events, no clicks.
+> 
+> *Google Calendar sync, live updates.*
+> 
+
+Next →
+
+---
+
+### **Step 4: Highlight Bottom Timeline**
+
+Zoom/focus bottom timeline.
+
+> Your Day, Visualized
+> 
+> 
+> See your timeline at a glance.
+> 
+> *Adjust your visible hours for work or personal flow.*
+> 
+
+Next →
+
+---
+
+### **Step 5: Zen Mode / Theme Builder**
+
+Zoom/focus top controls.
+
+> Make it Yours
+> 
+> 
+> Switch Zen Mode for a calmer vibe, or build your own theme.
+> 
+
+---
+
+### **Step 6: Done**
+
+Overlay fades.
+
+> Enjoy your day with Timedrift. Everything you need is already here.
+> 
+
+---
+
+**Optional:** After 2 mins idle → auto-trigger **Zen Mode** → *“Take a breath. Timedrift fades into calm mode when you pause.”*

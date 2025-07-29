@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { Header } from '@/components/Header';
 import { TimezoneWidget } from '@/components/TimezoneWidget';
 import { CalendarWidget } from '@/components/CalendarWidget';
@@ -6,6 +6,7 @@ import { TaskWidget } from '@/components/TaskWidget';
 import { DriftWidget } from '@/components/DriftWidget';
 import { TimelineBar } from '@/components/TimelineBar';
 import { StatusIndicators } from '@/components/StatusIndicators';
+import { Onboarding } from '@/components/Onboarding';
 import { Plus } from '@phosphor-icons/react';
 
 const Index = () => {
@@ -13,6 +14,39 @@ const Index = () => {
   const [isTaskOpen, setIsTaskOpen] = useState(false);
   const [isMusicOpen, setIsMusicOpen] = useState(false);
   const [isThemeOpen, setIsThemeOpen] = useState(false);
+  const [showOnboarding, setShowOnboarding] = useState(true);
+
+  // Optional: Auto-trigger Zen Mode after 2 minutes of idle time
+  useEffect(() => {
+    let idleTimer: NodeJS.Timeout;
+    
+    const resetIdleTimer = () => {
+      clearTimeout(idleTimer);
+      idleTimer = setTimeout(() => {
+        // Auto-trigger Zen Mode
+        console.log('Auto-triggering Zen Mode after 2 minutes of idle time');
+        // Add your Zen Mode logic here
+      }, 2 * 60 * 1000); // 2 minutes
+    };
+
+    const events = ['mousedown', 'mousemove', 'keypress', 'scroll', 'touchstart'];
+    events.forEach(event => {
+      document.addEventListener(event, resetIdleTimer, true);
+    });
+
+    resetIdleTimer();
+    
+    return () => {
+      clearTimeout(idleTimer);
+      events.forEach(event => {
+        document.removeEventListener(event, resetIdleTimer, true);
+      });
+    };
+  }, []);
+
+  const handleOnboardingComplete = () => {
+    setShowOnboarding(false);
+  };
 
   const handleCalendarToggle = () => {
     // Always open calendar and close other widgets
@@ -51,12 +85,12 @@ const Index = () => {
       {/* Background Image */}
       <img
         src="https://api.builder.io/api/v1/image/assets/ce880fcfdb934a18b6d97dead3ad8ee9/7f20138b6d9e5f652437093fd7b8e0f5f87e5158?placeholderIfAbsent=true"
-        className="fixed h-full w-full object-cover inset-0 -z-10"
+        className={`fixed h-full w-full object-cover inset-0 -z-10 transition-all duration-300 ${showOnboarding ? 'blur-md brightness-25' : ''}`}
         alt="Background"
       />
       
       {/* Full Width Navbar */}
-      <div className="w-full z-20 relative">
+      <div id="header-controls" className={`w-full z-20 relative transition-all duration-300 ${showOnboarding ? 'blur-sm brightness-50' : ''}`}>
         <Header 
           onCalendarToggle={handleCalendarToggle} 
           onTaskToggle={handleTaskToggle}
@@ -93,9 +127,9 @@ const Index = () => {
       </div>
 
       {/* Main Content Area */}
-      <div className="flex-1 flex w-full relative z-10 overflow-hidden">
+      <div id="main-content" className={`flex-1 flex w-full relative z-10 overflow-hidden transition-all duration-300 ${showOnboarding ? 'blur-sm brightness-50' : ''}`}>
         {/* Left Sidebar - Timezone Card */}
-        <aside className="w-[19%] max-md:w-full max-md:ml-0 max-lg:w-[25%] max-xl:w-[22%] min-w-0">
+        <aside id="timezone-panel" className="w-[19%] max-md:w-full max-md:ml-0 max-lg:w-[25%] max-xl:w-[22%] min-w-0">
           <div className="pt-1 sm:pt-2 px-1 sm:px-2 lg:px-5">
             <section className="justify-center items-stretch shadow-[0_-1px_1px_0_color(display-p3_1_1_1_/_0.10)_inset,0_1px_1px_0_color(display-p3_1_1_1_/_0.25)_inset,0_8px_6px_0_color(display-p3_0_0_0_/_0.05)] backdrop-blur-[10px] bg-[color(display-p3_0.0667_0.0667_0.0667)] flex w-full flex-col p-1.5 sm:p-2 lg:p-3 rounded-2xl">
               <header className="flex w-full items-center justify-between pb-1.5 sm:pb-2 lg:pb-3 gap-1 sm:gap-2">
@@ -138,7 +172,7 @@ const Index = () => {
         </aside>
 
         {/* Main Content */}
-        <main className="flex-1 ml-2 sm:ml-5 max-md:w-full max-md:ml-0">
+        <main id="calendar-panel" className="flex-1 ml-2 sm:ml-5 max-md:w-full max-md:ml-0">
           <div className="relative flex w-full flex-col items-stretch max-md:max-w-full">
             <div className="z-10 w-full">
               <div className="gap-2 sm:gap-5 flex max-md:flex-col max-md:items-stretch">
@@ -158,7 +192,7 @@ const Index = () => {
       </div>
 
       {/* Timeline Bar - Moved to bottom */}
-      <div className="relative w-full max-md:max-w-full">
+      <div id="timeline-panel" className={`relative w-full max-md:max-w-full transition-all duration-300 ${showOnboarding ? 'blur-sm brightness-50' : ''}`}>
         <TimelineBar />
         
         <div className="flex w-full items-center gap-4 justify-between flex-wrap px-5 max-md:max-w-full">
@@ -174,6 +208,12 @@ const Index = () => {
           <StatusIndicators />
         </div>
       </div>
+      
+      {/* Onboarding Component */}
+      <Onboarding 
+        isVisible={showOnboarding} 
+        onComplete={handleOnboardingComplete} 
+      />
     </div>
   );
 };
