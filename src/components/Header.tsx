@@ -1,22 +1,26 @@
 import React from 'react';
-import { Calendar, List, MusicNote, ChatCircle, SignIn } from '@phosphor-icons/react';
+import { Calendar, List, MusicNote, PaintBrush, SignIn } from '@phosphor-icons/react';
 
 interface HeaderProps {
   onCalendarToggle: () => void;
   onTaskToggle: () => void;
   onMusicToggle: () => void;
+  onThemeToggle: () => void;
   isCalendarOpen?: boolean;
   isTaskOpen?: boolean;
   isMusicOpen?: boolean;
+  isThemeOpen?: boolean;
 }
 
 export const Header: React.FC<HeaderProps> = ({ 
   onCalendarToggle, 
   onTaskToggle, 
   onMusicToggle,
+  onThemeToggle,
   isCalendarOpen = false, 
   isTaskOpen = false,
-  isMusicOpen = false
+  isMusicOpen = false,
+  isThemeOpen = false
 }) => {
   const handleSignIn = () => {
     console.log('Sign in clicked');
@@ -104,10 +108,25 @@ export const Header: React.FC<HeaderProps> = ({
             <div className="box-border content-stretch flex flex-row gap-2 items-center justify-start pl-4 pr-0 py-0 relative shrink-0">
               <div className="absolute border-[0px_0px_0px_1px] border-[rgba(255,255,255,0.2)] border-solid inset-0 pointer-events-none" />
               
-              {/* Dialog Button */}
-              <button className="relative shrink-0 size-10 hover:bg-[#202020] rounded-full transition-colors">
-                <ChatCircle className="w-5 h-5 text-white" weight="regular" />
-              </button>
+              {/* Theme Button */}
+              <div className="box-border content-stretch flex flex-col gap-1.5 items-center justify-center p-0 relative shrink-0 w-10">
+                <button 
+                  onClick={onThemeToggle}
+                  className={`relative rounded-[9999px] shrink-0 size-10 transition-colors ${
+                    isThemeOpen 
+                      ? 'bg-[#202020] hover:bg-[#252525]' 
+                      : 'bg-[#181818] hover:bg-[#202020]'
+                  }`}
+                >
+                  <div className="absolute left-1/2 size-5 top-1/2 translate-x-[-50%] translate-y-[-50%]">
+                    <PaintBrush className="w-5 h-5 text-white" weight="regular" />
+                  </div>
+                </button>
+                {/* Green dot indicator - show when theme is selected */}
+                {isThemeOpen && (
+                  <div className="absolute bg-green-500 left-1/2 transform -translate-x-1/2 rounded-[9999px] size-1.5 top-[46px]" />
+                )}
+              </div>
 
               {/* Sign In Button */}
               <button

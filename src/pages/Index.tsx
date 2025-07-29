@@ -9,43 +9,41 @@ import { StatusIndicators } from '@/components/StatusIndicators';
 import { Plus } from '@phosphor-icons/react';
 
 const Index = () => {
-  const [isCalendarOpen, setIsCalendarOpen] = useState(false);
+  const [isCalendarOpen, setIsCalendarOpen] = useState(true);
   const [isTaskOpen, setIsTaskOpen] = useState(false);
   const [isMusicOpen, setIsMusicOpen] = useState(false);
+  const [isThemeOpen, setIsThemeOpen] = useState(false);
 
   const handleCalendarToggle = () => {
-    if (isCalendarOpen) {
-      // If calendar is currently open, just close it
-      setIsCalendarOpen(false);
-    } else {
-      // If calendar is closed, open it and close task
-      setIsCalendarOpen(true);
-      setIsTaskOpen(false);
-    }
+    // Always open calendar and close other widgets
+    setIsCalendarOpen(true);
+    setIsTaskOpen(false);
+    setIsMusicOpen(false);
+    setIsThemeOpen(false);
   };
 
   const handleTaskToggle = () => {
-    if (isTaskOpen) {
-      // If task is currently open, just close it
-      setIsTaskOpen(false);
-    } else {
-      // If task is closed, open it and close calendar and music
-      setIsTaskOpen(true);
-      setIsCalendarOpen(false);
-      setIsMusicOpen(false);
-    }
+    // Always open task and close other widgets
+    setIsTaskOpen(true);
+    setIsCalendarOpen(false);
+    setIsMusicOpen(false);
+    setIsThemeOpen(false);
   };
 
   const handleMusicToggle = () => {
-    if (isMusicOpen) {
-      // If music is currently open, just close it
-      setIsMusicOpen(false);
-    } else {
-      // If music is closed, open it and close calendar and task
-      setIsMusicOpen(true);
-      setIsCalendarOpen(false);
-      setIsTaskOpen(false);
-    }
+    // Always open music and close other widgets
+    setIsMusicOpen(true);
+    setIsCalendarOpen(false);
+    setIsTaskOpen(false);
+    setIsThemeOpen(false);
+  };
+
+  const handleThemeToggle = () => {
+    // Always open theme and close other widgets
+    setIsThemeOpen(true);
+    setIsCalendarOpen(false);
+    setIsTaskOpen(false);
+    setIsMusicOpen(false);
   };
   
   return (
@@ -63,9 +61,11 @@ const Index = () => {
           onCalendarToggle={handleCalendarToggle} 
           onTaskToggle={handleTaskToggle}
           onMusicToggle={handleMusicToggle}
+          onThemeToggle={handleThemeToggle}
           isCalendarOpen={isCalendarOpen} 
           isTaskOpen={isTaskOpen}
           isMusicOpen={isMusicOpen}
+          isThemeOpen={isThemeOpen}
         />
         
         {/* Calendar Dropdown - Positioned just below navbar on the right */}
@@ -86,9 +86,9 @@ const Index = () => {
           </div>
         )}
 
-        {/* Music/Drift Widget - Full Screen Overlay */}
-        {isMusicOpen && (
-          <DriftWidget onClose={() => setIsMusicOpen(false)} />
+        {/* Theme/Drift Widget - Full Screen Overlay */}
+        {isThemeOpen && (
+          <DriftWidget onClose={() => setIsThemeOpen(false)} />
         )}
       </div>
 
