@@ -3,6 +3,7 @@ import { Header } from '@/components/Header';
 import { TimezoneWidget } from '@/components/TimezoneWidget';
 import { CalendarWidget } from '@/components/CalendarWidget';
 import { TaskWidget } from '@/components/TaskWidget';
+import { DriftWidget } from '@/components/DriftWidget';
 import { TimelineBar } from '@/components/TimelineBar';
 import { StatusIndicators } from '@/components/StatusIndicators';
 import { Plus } from '@phosphor-icons/react';
@@ -81,6 +82,15 @@ const Index = () => {
           <div className="absolute top-full right-0 z-15">
             <div className="px-3 py-2">
               <TaskWidget />
+            </div>
+          </div>
+        )}
+
+        {/* Music/Drift Dropdown - Positioned just below navbar on the right */}
+        {isMusicOpen && (
+          <div className="absolute top-full right-0 z-15">
+            <div className="px-3 py-2">
+              <DriftWidget />
             </div>
           </div>
         )}
