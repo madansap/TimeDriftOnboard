@@ -9,6 +9,7 @@ interface OnboardingProps {
 
 export const Onboarding: React.FC<OnboardingProps> = ({ isVisible, onComplete }) => {
   const [isIntroVisible, setIsIntroVisible] = useState(false);
+  const [isFinalStepVisible, setIsFinalStepVisible] = useState(false);
   const driverRef = useRef<any>(null);
 
   useEffect(() => {
@@ -23,22 +24,13 @@ export const Onboarding: React.FC<OnboardingProps> = ({ isVisible, onComplete })
     // Wait for intro fade out, then start step 2
     setTimeout(() => {
       try {
-        // Remove blur effects from timezone panel
-        const timezonePanel = document.querySelector('#timezone-panel');
-        if (timezonePanel) {
-          timezonePanel.classList.remove('blur-sm', 'brightness-50');
-          console.log('Removed blur from timezone panel');
+        // Remove blur effects from main content container (parent of timezone and calendar panels)
+        const mainContent = document.querySelector('#main-content');
+        if (mainContent) {
+          mainContent.classList.remove('blur-sm', 'brightness-50');
+          console.log('Removed blur from main content');
         } else {
-          console.warn('Timezone panel not found');
-        }
-
-        // Remove blur effects from calendar panel
-        const calendarPanel = document.querySelector('#calendar-panel');
-        if (calendarPanel) {
-          calendarPanel.classList.remove('blur-sm', 'brightness-50');
-          console.log('Removed blur from calendar panel');
-        } else {
-          console.warn('Calendar panel not found');
+          console.warn('Main content not found');
         }
 
         // Remove blur effects from timeline panel
@@ -61,7 +53,10 @@ export const Onboarding: React.FC<OnboardingProps> = ({ isVisible, onComplete })
           popoverClass: 'driverjs-theme',
           onDestroyStarted: () => {
             console.log('Step 2 completed');
-            onComplete();
+            // Show final step after driver completes
+            setTimeout(() => {
+              setIsFinalStepVisible(true);
+            }, 300);
           },
           onHighlightStarted: (element) => {
             console.log('Highlight started', element);
@@ -81,6 +76,21 @@ export const Onboarding: React.FC<OnboardingProps> = ({ isVisible, onComplete })
                 childElement.style.filter = 'none';
                 childElement.style.backdropFilter = 'none';
               });
+
+              // Ensure parent containers don't have blur applied
+              const mainContent = document.querySelector('#main-content');
+              if (mainContent) {
+                mainContent.classList.remove('blur-sm', 'brightness-50');
+                (mainContent as HTMLElement).style.filter = 'none';
+                (mainContent as HTMLElement).style.backdropFilter = 'none';
+              }
+
+              const timelinePanel = document.querySelector('#timeline-panel');
+              if (timelinePanel) {
+                timelinePanel.classList.remove('blur-sm', 'brightness-50');
+                (timelinePanel as HTMLElement).style.filter = 'none';
+                (timelinePanel as HTMLElement).style.backdropFilter = 'none';
+              }
             }
           },
           onHighlighted: (element) => {
@@ -98,6 +108,21 @@ export const Onboarding: React.FC<OnboardingProps> = ({ isVisible, onComplete })
                 childElement.style.filter = '';
                 childElement.style.backdropFilter = '';
               });
+
+              // Ensure parent containers remain unblurred during tour
+              const mainContent = document.querySelector('#main-content');
+              if (mainContent) {
+                mainContent.classList.remove('blur-sm', 'brightness-50');
+                (mainContent as HTMLElement).style.filter = 'none';
+                (mainContent as HTMLElement).style.backdropFilter = 'none';
+              }
+
+              const timelinePanel = document.querySelector('#timeline-panel');
+              if (timelinePanel) {
+                timelinePanel.classList.remove('blur-sm', 'brightness-50');
+                (timelinePanel as HTMLElement).style.filter = 'none';
+                (timelinePanel as HTMLElement).style.backdropFilter = 'none';
+              }
             }
           }
         });
@@ -130,6 +155,15 @@ export const Onboarding: React.FC<OnboardingProps> = ({ isVisible, onComplete })
               side: 'right',
               align: 'start'
             }
+          },
+          {
+            element: '#header-controls',
+            popover: {
+              title: 'Make it Yours',
+              description: 'Switch Zen Mode for a calmer vibe, or build your own theme.',
+              side: 'bottom',
+              align: 'center'
+            }
           }
         ];
 
@@ -141,6 +175,11 @@ export const Onboarding: React.FC<OnboardingProps> = ({ isVisible, onComplete })
         console.error('Error starting step 2:', error);
       }
     }, 500); // Wait 500ms for intro fade out
+  };
+
+  const handleFinalStepComplete = () => {
+    setIsFinalStepVisible(false);
+    onComplete();
   };
 
   if (!isVisible) return null;
@@ -162,6 +201,26 @@ export const Onboarding: React.FC<OnboardingProps> = ({ isVisible, onComplete })
               className="bg-transparent border border-white text-white px-8 py-3 rounded-lg font-medium transition-all hover:bg-white hover:text-black"
             >
               Show me around →
+            </button>
+          </div>
+        </div>
+      )}
+
+      {/* Step 6: Final Completion Modal */}
+      {isFinalStepVisible && (
+        <div className="fixed inset-0 bg-black/60 z-50 flex items-center justify-center animate-fade-in">
+          <div className="p-12 max-w-xl mx-4 text-center animate-slide-up">
+            <h2 className="text-4xl font-bold text-white mb-4">
+              Enjoy your day with Timedrift
+            </h2>
+            <p className="text-white text-lg leading-relaxed mb-10">
+              Everything you need is already here.
+            </p>
+            <button
+              onClick={handleFinalStepComplete}
+              className="bg-transparent border border-white text-white px-8 py-3 rounded-lg font-medium transition-all hover:bg-white hover:text-black"
+            >
+              Get Started
             </button>
           </div>
         </div>

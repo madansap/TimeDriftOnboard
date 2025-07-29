@@ -40,7 +40,7 @@ export const Header: React.FC<HeaderProps> = ({
           </div>
 
           {/* Navigation Buttons */}
-          <div className="box-border content-stretch flex flex-row gap-4 items-center justify-start p-0 relative shrink-0">
+          <div id="header-controls" className="box-border content-stretch flex flex-row gap-4 items-center justify-start p-0 relative shrink-0">
             {/* Left Button Group */}
             <div className="box-border content-stretch flex flex-row gap-2 items-center justify-start p-0 relative shrink-0">
               {/* First Button - Calendar */}
