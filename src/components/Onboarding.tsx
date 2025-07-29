@@ -17,14 +17,31 @@ export const Onboarding: React.FC<OnboardingProps> = ({ isVisible, onComplete })
     }
   }, [isVisible]);
 
-  const startTour = () => {
-    console.log('Starting onboarding tour...');
+  const handleGetStarted = () => {
     setIsIntroVisible(false);
     
-    // Wait for intro fade out, then start tour
+    // Wait for intro fade out, then start step 2
     setTimeout(() => {
       try {
-        // Initialize Driver.js with API configuration
+        // Remove blur effects from timezone panel
+        const timezonePanel = document.querySelector('#timezone-panel');
+        if (timezonePanel) {
+          timezonePanel.classList.remove('blur-sm', 'brightness-50');
+          console.log('Removed blur from timezone panel');
+        } else {
+          console.warn('Timezone panel not found');
+        }
+
+        // Remove blur effects from calendar panel
+        const calendarPanel = document.querySelector('#calendar-panel');
+        if (calendarPanel) {
+          calendarPanel.classList.remove('blur-sm', 'brightness-50');
+          console.log('Removed blur from calendar panel');
+        } else {
+          console.warn('Calendar panel not found');
+        }
+
+        // Initialize Driver.js for step 2
         driverRef.current = driver({
           showProgress: false,
           allowClose: false,
@@ -34,22 +51,49 @@ export const Onboarding: React.FC<OnboardingProps> = ({ isVisible, onComplete })
           stagePadding: 10,
           popoverClass: 'driverjs-theme',
           onDestroyStarted: () => {
-            console.log('Tour completed');
+            console.log('Step 2 completed');
             onComplete();
-          },
-          onNextClick: (element) => {
-            console.log('Next clicked', element);
           },
           onHighlightStarted: (element) => {
             console.log('Highlight started', element);
-            element?.classList.add('tour-highlighted');
+            if (element) {
+              element.classList.add('tour-highlighted');
+              // Force the element to be above the overlay and remove all blur effects
+              const htmlElement = element as HTMLElement;
+              htmlElement.style.zIndex = '10001';
+              htmlElement.style.position = 'relative';
+              htmlElement.style.filter = 'none';
+              htmlElement.style.backdropFilter = 'none';
+              
+              // Also remove blur from all child elements
+              const childElements = htmlElement.querySelectorAll('*');
+              childElements.forEach((child) => {
+                const childElement = child as HTMLElement;
+                childElement.style.filter = 'none';
+                childElement.style.backdropFilter = 'none';
+              });
+            }
           },
           onHighlighted: (element) => {
-            element?.classList.remove('tour-highlighted');
+            if (element) {
+              element.classList.remove('tour-highlighted');
+              // Clear inline styles
+              const htmlElement = element as HTMLElement;
+              htmlElement.style.filter = '';
+              htmlElement.style.backdropFilter = '';
+              
+              // Clear inline styles from all child elements
+              const childElements = htmlElement.querySelectorAll('*');
+              childElements.forEach((child) => {
+                const childElement = child as HTMLElement;
+                childElement.style.filter = '';
+                childElement.style.backdropFilter = '';
+              });
+            }
           }
         });
 
-        // Define steps according to PRD
+        // Step 2: Highlight Left Panel (Timezones)
         const steps = [
           {
             element: '#timezone-panel',
@@ -68,42 +112,15 @@ export const Onboarding: React.FC<OnboardingProps> = ({ isVisible, onComplete })
               side: 'left',
               align: 'start'
             }
-          },
-          {
-            element: '#timeline-panel',
-            popover: {
-              title: 'Your Day, Visualized',
-              description: 'See your timeline at a glance. Adjust your visible hours for work or personal flow.',
-              side: 'top',
-              align: 'center'
-            }
-          },
-          {
-            element: '#header-controls',
-            popover: {
-              title: 'Make it Yours',
-              description: 'Switch Zen Mode for a calmer vibe, or build your own theme.',
-              side: 'bottom',
-              align: 'center'
-            }
-          },
-          {
-            element: '#main-content',
-            popover: {
-              title: 'Enjoy your day with Timedrift',
-              description: 'Everything you need is already here.',
-              side: 'center',
-              align: 'center'
-            }
           }
         ];
 
-        console.log('Setting tour steps:', steps);
+        console.log('Starting step 2: Timezone panel highlight');
         driverRef.current.setSteps(steps);
         driverRef.current.drive();
         
       } catch (error) {
-        console.error('Error starting tour:', error);
+        console.error('Error starting step 2:', error);
       }
     }, 500); // Wait 500ms for intro fade out
   };
@@ -112,54 +129,22 @@ export const Onboarding: React.FC<OnboardingProps> = ({ isVisible, onComplete })
 
   return (
     <>
-      {/* Step 1: Soft Overlay Intro */}
+      {/* Step 1: Welcome Modal */}
       {isIntroVisible && (
         <div className="fixed inset-0 bg-black/60 z-50 flex items-center justify-center animate-fade-in">
-          <div className="p-12 max-w-xl mx-4 text-center animate-slide-up relative overflow-hidden">
-            {/* Circular Time Graphic */}
-            <div className="absolute top-0 left-1/2 transform -translate-x-1/2 -translate-y-1/2 w-80 h-80 opacity-20 circular-graphic">
-              <div className="relative w-full h-full">
-                {/* Outer Ring */}
-                <div className="absolute inset-0 rounded-full border border-dashed border-gray-600"></div>
-                {/* Middle Ring */}
-                <div className="absolute inset-4 rounded-full border border-dashed border-gray-700"></div>
-                {/* Inner Ring */}
-                <div className="absolute inset-8 rounded-full border border-dashed border-gray-800"></div>
-                
-                {/* Time Markers */}
-                <div className="absolute inset-0">
-                  {/* Right side markers */}
-                  <div className="absolute top-1/2 right-0 transform translate-x-1 -translate-y-1/2 text-xs text-gray-500">01</div>
-                  <div className="absolute top-1/3 right-2 transform translate-x-1 -translate-y-1/2 text-xs text-gray-500">02</div>
-                  <div className="absolute top-1/4 right-4 transform translate-x-1 -translate-y-1/2 text-xs text-gray-500">03</div>
-                  
-                  {/* Left side markers */}
-                  <div className="absolute top-1/2 left-0 transform -translate-x-1 -translate-y-1/2 text-xs text-gray-500">20</div>
-                  <div className="absolute top-1/3 left-2 transform -translate-x-1 -translate-y-1/2 text-xs text-gray-500">21</div>
-                  <div className="absolute top-1/4 left-4 transform -translate-x-1 -translate-y-1/2 text-xs text-gray-500">22</div>
-                  
-                  {/* Bottom markers */}
-                  <div className="absolute bottom-0 left-1/2 transform -translate-x-1/2 translate-y-1 text-xs text-gray-500">12</div>
-                  <div className="absolute bottom-1/4 left-1/2 transform -translate-x-1/2 translate-y-1 text-xs text-gray-500">13</div>
-                  <div className="absolute bottom-1/3 left-1/2 transform -translate-x-1/2 translate-y-1 text-xs text-gray-500">14</div>
-                </div>
-              </div>
-            </div>
-            
-            <div className="relative z-10 pt-20">
-              <h2 className="text-4xl font-bold text-white mb-4">
-                Welcome to Timedrift
-              </h2>
-              <p className="text-white text-lg leading-relaxed mb-10">
-                Your calm daily dashboard to feel time differently.
-              </p>
-              <button
-                onClick={startTour}
-                className="bg-transparent border border-white text-white px-8 py-3 rounded-lg font-medium transition-all hover:bg-white hover:text-black"
-              >
-                Show me around →
-              </button>
-            </div>
+          <div className="p-12 max-w-xl mx-4 text-center animate-slide-up">
+            <h2 className="text-4xl font-bold text-white mb-4">
+              Welcome to Timedrift
+            </h2>
+            <p className="text-white text-lg leading-relaxed mb-10">
+              Your calm daily dashboard to feel time differently.
+            </p>
+            <button
+              onClick={handleGetStarted}
+              className="bg-transparent border border-white text-white px-8 py-3 rounded-lg font-medium transition-all hover:bg-white hover:text-black"
+            >
+              Show me around →
+            </button>
           </div>
         </div>
       )}

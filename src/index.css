@@ -98,9 +98,41 @@ All colors MUST be HSL.
   * {
     @apply border-border;
   }
-
+  
   body {
     @apply bg-background text-foreground;
-    overflow-x: hidden;
   }
+}
+
+/* Driver.js tour styles for step 2 */
+.tour-highlighted {
+  position: relative !important;
+  z-index: 10001 !important;
+  filter: none !important;
+  transform: none !important;
+  backdrop-filter: none !important;
+}
+
+.tour-highlighted * {
+  filter: none !important;
+  backdrop-filter: none !important;
+}
+
+/* Ensure driver.js popover is above everything including the overlay */
+.driverjs-theme {
+  z-index: 10002 !important;
+  filter: none !important;
+  backdrop-filter: none !important;
+}
+
+/* Ensure the timezone panel is above the driver.js overlay */
+#timezone-panel {
+  position: relative !important;
+  z-index: 10001 !important;
+}
+
+/* Ensure the calendar panel is above the driver.js overlay */
+#calendar-panel {
+  position: relative !important;
+  z-index: 10001 !important;
 }
