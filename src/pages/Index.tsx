@@ -95,26 +95,43 @@ const Index = () => {
       {/* Main Content Area */}
       <div className="flex-1 flex w-full relative z-10 overflow-hidden">
         {/* Left Sidebar - Timezone Card */}
-        <aside className="w-[19%] max-md:w-full max-md:ml-0">
-          <div className="pt-2 px-5">
+        <aside className="w-[19%] max-md:w-full max-md:ml-0 max-lg:w-[25%] max-xl:w-[22%]">
+          <div className="pt-2 px-3 lg:px-5">
             <section className="justify-center items-stretch shadow-[0_-1px_1px_0_color(display-p3_1_1_1_/_0.10)_inset,0_1px_1px_0_color(display-p3_1_1_1_/_0.25)_inset,0_8px_6px_0_color(display-p3_0_0_0_/_0.05)] backdrop-blur-[10px] bg-[color(display-p3_0.0667_0.0667_0.0667)] flex w-full flex-col p-3 rounded-2xl">
-              <header className="flex w-full items-center gap-[40px_84px] whitespace-nowrap justify-between pb-1">
-                <h2 className="self-stretch text-[15px] text-[#b3b3b3] font-medium leading-loose my-auto">
+              <header className="flex w-full items-center justify-between pb-3">
+                <h2 className="text-[15px] text-[#b3b3b3] font-medium">
                   Timezones
                 </h2>
-                <button className="self-stretch text-[13px] text-white font-bold text-center leading-loose my-auto">
+                <button className="text-[13px] text-white font-bold">
                   <div className="items-center border border-[color(display-p3_0.1255_0.1255_0.1255)] bg-[color(display-p3_0.0941_0.0941_0.0941)] flex min-h-8 gap-2 pl-[9px] pr-[13px] py-1.5 rounded-xl border-solid hover:bg-[color(display-p3_0.1255_0.1255_0.1255)] transition-colors">
-                    <Plus className="w-5 h-5 text-white" weight="regular" />
-                    <span>Timezone</span>
+                    <Plus className="w-4 h-4 text-white" weight="regular" />
+                    <span className="hidden sm:inline">Timezone</span>
                   </div>
                 </button>
               </header>
               
-              <div className="space-y-2">
-                <TimezoneWidget timezone="UTC (Local)" time="02:00" period="PM" />
-                <TimezoneWidget timezone="UTC (Local)" time="02:00" period="PM" />
-                <TimezoneWidget timezone="UTC (Local)" time="02:00" period="PM" />
-                <TimezoneWidget timezone="UTC (Local)" time="02:00" period="PM" />
+              <div className="space-y-3">
+                <TimezoneWidget 
+                  timezone="Katmandu (Local)" 
+                  time="08:00" 
+                  period="AM"
+                  isLocal={true}
+                />
+                <TimezoneWidget 
+                  timezone="Chicago, USA" 
+                  time="09:15" 
+                  period="PM"
+                  gmtOffset="GMT-5:00"
+                  timeDiff="10 h 45 m"
+                  date="Jul 28"
+                />
+                <TimezoneWidget 
+                  timezone="Sydney, Australia" 
+                  time="12:15" 
+                  period="PM"
+                  gmtOffset="GMT+10:00"
+                  timeDiff="4 h 15 m"
+                />
               </div>
             </section>
           </div>
