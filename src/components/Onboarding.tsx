@@ -41,6 +41,15 @@ export const Onboarding: React.FC<OnboardingProps> = ({ isVisible, onComplete })
           console.warn('Calendar panel not found');
         }
 
+        // Remove blur effects from timeline panel
+        const timelinePanel = document.querySelector('#timeline-panel');
+        if (timelinePanel) {
+          timelinePanel.classList.remove('blur-sm', 'brightness-50');
+          console.log('Removed blur from timeline panel');
+        } else {
+          console.warn('Timeline panel not found');
+        }
+
         // Initialize Driver.js for step 2
         driverRef.current = driver({
           showProgress: false,
@@ -110,6 +119,15 @@ export const Onboarding: React.FC<OnboardingProps> = ({ isVisible, onComplete })
               title: 'Your Calendar, Synced',
               description: 'Today\'s events, no clicks. Google Calendar sync, live updates.',
               side: 'left',
+              align: 'start'
+            }
+          },
+          {
+            element: '#timeline-panel',
+            popover: {
+              title: 'Your Timeline',
+              description: 'Visualize your day. Drag events to reschedule, see your rhythm.',
+              side: 'right',
               align: 'start'
             }
           }
