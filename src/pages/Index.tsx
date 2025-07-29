@@ -86,13 +86,9 @@ const Index = () => {
           </div>
         )}
 
-        {/* Music/Drift Dropdown - Positioned just below navbar on the right */}
+        {/* Music/Drift Widget - Full Screen Overlay */}
         {isMusicOpen && (
-          <div className="absolute top-full right-0 z-15">
-            <div className="px-3 py-2">
-              <DriftWidget />
-            </div>
-          </div>
+          <DriftWidget onClose={() => setIsMusicOpen(false)} />
         )}
       </div>
 
