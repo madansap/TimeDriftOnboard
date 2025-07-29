@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState, useRef, useEffect } from 'react';
 import { X, CirclesFour, Flower, CheckCircle, User } from '@phosphor-icons/react';
 
 // Localhost assets from Figma MCP
@@ -35,18 +35,66 @@ function ThemesCard({ property1 = "Default", backgroundImage, title, isSelected 
   );
 }
 
-export const DriftWidget: React.FC = () => {
+interface DriftWidgetProps {
+  onClose: () => void;
+}
+
+export const DriftWidget: React.FC<DriftWidgetProps> = ({ onClose }) => {
+  const [isClosing, setIsClosing] = useState(false);
+  const [layoutMode, setLayoutMode] = useState<'standard' | 'zen'>('standard');
+  const widgetRef = useRef<HTMLDivElement>(null);
+
   const handleClose = () => {
-    console.log('Close drift widget');
+    setIsClosing(true);
+    setTimeout(() => {
+      onClose();
+    }, 300); // Match animation duration
   };
 
   const handleSignIn = () => {
     console.log('Sign in clicked');
   };
 
+  const toggleLayoutMode = () => {
+    setLayoutMode(prev => prev === 'standard' ? 'zen' : 'standard');
+  };
+
+  // Handle click outside
+  useEffect(() => {
+    const handleClickOutside = (event: MouseEvent) => {
+      if (widgetRef.current && !widgetRef.current.contains(event.target as Node)) {
+        handleClose();
+      }
+    };
+
+    document.addEventListener('mousedown', handleClickOutside);
+    return () => {
+      document.removeEventListener('mousedown', handleClickOutside);
+    };
+  }, []);
+
+  // Handle escape key
+  useEffect(() => {
+    const handleEscape = (event: KeyboardEvent) => {
+      if (event.key === 'Escape') {
+        handleClose();
+      }
+    };
+
+    document.addEventListener('keydown', handleEscape);
+    return () => {
+      document.removeEventListener('keydown', handleEscape);
+    };
+  }, []);
+
   return (
     <div className="fixed inset-0 bg-black/50 backdrop-blur-sm z-50 flex justify-end">
-      <div className="bg-[#111111] border-l border-[#202020] shadow-2xl w-full max-w-sm h-full overflow-y-auto animate-slide-in-right">
+      <div 
+        ref={widgetRef}
+        className={`bg-[#111111] border-l border-[#202020] shadow-2xl w-full max-w-sm h-full overflow-y-auto transition-transform duration-300 ease-in-out ${
+          isClosing ? 'translate-x-full' : 'translate-x-0'
+        }`}
+      >
         <div className="p-4 flex flex-col gap-6 h-full">
           {/* Header */}
           <div className="flex flex-col gap-2">
@@ -72,14 +120,38 @@ export const DriftWidget: React.FC = () => {
             
             {/* Layout Toggle */}
             <div className="bg-[#181818] rounded-lg p-1 flex">
-              <div className="flex-1 bg-[#111111] border border-[#202020] rounded-md p-3 flex items-center justify-center gap-2">
-                <CirclesFour className="w-4 h-4 text-[#e5aa4f]" weight="regular" />
-                <span className="text-[#e5aa4f] text-sm font-semibold">Standard</span>
-              </div>
-              <div className="flex-1 p-3 flex items-center justify-center gap-2">
-                <Flower className="w-4 h-4 text-[#b3b3b3]" weight="regular" />
-                <span className="text-[#b3b3b3] text-sm font-semibold">Zen Mode</span>
-              </div>
+              <button 
+                onClick={toggleLayoutMode}
+                className={`flex-1 p-3 flex items-center justify-center gap-2 rounded-md transition-all ${
+                  layoutMode === 'standard' 
+                    ? 'bg-[#111111] border border-[#202020]' 
+                    : 'hover:bg-[#202020]'
+                }`}
+              >
+                <CirclesFour 
+                  className={`w-4 h-4 ${layoutMode === 'standard' ? 'text-[#e5aa4f]' : 'text-[#b3b3b3]'}`} 
+                  weight="regular" 
+                />
+                <span className={`text-sm font-semibold ${layoutMode === 'standard' ? 'text-[#e5aa4f]' : 'text-[#b3b3b3]'}`}>
+                  Standard
+                </span>
+              </button>
+              <button 
+                onClick={toggleLayoutMode}
+                className={`flex-1 p-3 flex items-center justify-center gap-2 rounded-md transition-all ${
+                  layoutMode === 'zen' 
+                    ? 'bg-[#111111] border border-[#202020]' 
+                    : 'hover:bg-[#202020]'
+                }`}
+              >
+                <Flower 
+                  className={`w-4 h-4 ${layoutMode === 'zen' ? 'text-[#e5aa4f]' : 'text-[#b3b3b3]'}`} 
+                  weight="regular" 
+                />
+                <span className={`text-sm font-semibold ${layoutMode === 'zen' ? 'text-[#e5aa4f]' : 'text-[#b3b3b3]'}`}>
+                  Zen Mode
+                </span>
+              </button>
             </div>
           </div>
 
