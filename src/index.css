@@ -131,8 +131,32 @@ All colors MUST be HSL.
   z-index: 10001 !important;
 }
 
-/* Ensure the calendar panel is above the driver.js overlay */
-#calendar-panel {
+/* Ensure the calendar card is above the driver.js overlay */
+#calendar-card {
   position: relative !important;
   z-index: 10001 !important;
+  transform: none !important;
+  filter: none !important;
+  backdrop-filter: none !important;
+}
+
+/* Ensure the calendar card doesn't affect layout during highlighting */
+#calendar-card.tour-highlighted {
+  position: relative !important;
+  z-index: 10001 !important;
+  transform: none !important;
+  filter: none !important;
+  backdrop-filter: none !important;
+}
+
+/* Ensure the calendar dropdown is properly positioned during tour */
+#header-controls .absolute {
+  z-index: 10001 !important;
+}
+
+/* Ensure the onboarding overlay doesn't interfere with the calendar dropdown */
+.driverjs-theme {
+  z-index: 10002 !important;
+  filter: none !important;
+  backdrop-filter: none !important;
 }

@@ -42,6 +42,21 @@ export const Onboarding: React.FC<OnboardingProps> = ({ isVisible, onComplete })
           console.warn('Timeline panel not found');
         }
 
+        // Remove all backdrop-blur classes from all elements
+        const allElements = document.querySelectorAll('*');
+        allElements.forEach((element) => {
+          const classList = element.classList;
+          if (classList.contains('backdrop-blur-[10px]') || 
+              classList.contains('backdrop-blur-sm') || 
+              classList.contains('backdrop-blur-md') || 
+              classList.contains('backdrop-blur-lg') ||
+              classList.contains('blur-sm') ||
+              classList.contains('brightness-50')) {
+            classList.remove('backdrop-blur-[10px]', 'backdrop-blur-sm', 'backdrop-blur-md', 'backdrop-blur-lg', 'blur-sm', 'brightness-50');
+          }
+        });
+        console.log('Removed all backdrop-blur and blur classes');
+
         // Initialize Driver.js for step 2
         driverRef.current = driver({
           showProgress: false,
@@ -68,6 +83,7 @@ export const Onboarding: React.FC<OnboardingProps> = ({ isVisible, onComplete })
               htmlElement.style.position = 'relative';
               htmlElement.style.filter = 'none';
               htmlElement.style.backdropFilter = 'none';
+              htmlElement.style.transform = 'none';
               
               // Also remove blur from all child elements
               const childElements = htmlElement.querySelectorAll('*');
@@ -75,6 +91,18 @@ export const Onboarding: React.FC<OnboardingProps> = ({ isVisible, onComplete })
                 const childElement = child as HTMLElement;
                 childElement.style.filter = 'none';
                 childElement.style.backdropFilter = 'none';
+                childElement.style.transform = 'none';
+                
+                // Also remove any backdrop-blur classes
+                const classList = childElement.classList;
+                if (classList.contains('backdrop-blur-[10px]') || 
+                    classList.contains('backdrop-blur-sm') || 
+                    classList.contains('backdrop-blur-md') || 
+                    classList.contains('backdrop-blur-lg') ||
+                    classList.contains('blur-sm') ||
+                    classList.contains('brightness-50')) {
+                  classList.remove('backdrop-blur-[10px]', 'backdrop-blur-sm', 'backdrop-blur-md', 'backdrop-blur-lg', 'blur-sm', 'brightness-50');
+                }
               });
 
               // Ensure parent containers don't have blur applied
@@ -91,6 +119,14 @@ export const Onboarding: React.FC<OnboardingProps> = ({ isVisible, onComplete })
                 (timelinePanel as HTMLElement).style.filter = 'none';
                 (timelinePanel as HTMLElement).style.backdropFilter = 'none';
               }
+
+              // Ensure header controls are properly positioned during tour
+              const headerControls = document.querySelector('#header-controls');
+              if (headerControls) {
+                headerControls.classList.remove('blur-sm', 'brightness-50');
+                (headerControls as HTMLElement).style.filter = 'none';
+                (headerControls as HTMLElement).style.backdropFilter = 'none';
+              }
             }
           },
           onHighlighted: (element) => {
@@ -100,6 +136,7 @@ export const Onboarding: React.FC<OnboardingProps> = ({ isVisible, onComplete })
               const htmlElement = element as HTMLElement;
               htmlElement.style.filter = '';
               htmlElement.style.backdropFilter = '';
+              htmlElement.style.transform = '';
               
               // Clear inline styles from all child elements
               const childElements = htmlElement.querySelectorAll('*');
@@ -107,6 +144,7 @@ export const Onboarding: React.FC<OnboardingProps> = ({ isVisible, onComplete })
                 const childElement = child as HTMLElement;
                 childElement.style.filter = '';
                 childElement.style.backdropFilter = '';
+                childElement.style.transform = '';
               });
 
               // Ensure parent containers remain unblurred during tour
@@ -122,6 +160,14 @@ export const Onboarding: React.FC<OnboardingProps> = ({ isVisible, onComplete })
                 timelinePanel.classList.remove('blur-sm', 'brightness-50');
                 (timelinePanel as HTMLElement).style.filter = 'none';
                 (timelinePanel as HTMLElement).style.backdropFilter = 'none';
+              }
+
+              // Ensure header controls remain properly positioned during tour
+              const headerControls = document.querySelector('#header-controls');
+              if (headerControls) {
+                headerControls.classList.remove('blur-sm', 'brightness-50');
+                (headerControls as HTMLElement).style.filter = 'none';
+                (headerControls as HTMLElement).style.backdropFilter = 'none';
               }
             }
           }
@@ -139,12 +185,12 @@ export const Onboarding: React.FC<OnboardingProps> = ({ isVisible, onComplete })
             }
           },
           {
-            element: '#calendar-panel',
+            element: '#calendar-card',
             popover: {
               title: 'Your Calendar, Synced',
               description: 'Today\'s events, no clicks. Google Calendar sync, live updates.',
-              side: 'left',
-              align: 'start'
+              side: 'bottom',
+              align: 'center'
             }
           },
           {

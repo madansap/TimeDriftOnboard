@@ -8,7 +8,7 @@ export const CalendarWidget: React.FC = () => {
   };
 
   return (
-    <div className="justify-center items-stretch shadow-[0_-1px_1px_0_color(display-p3_1_1_1_/_0.10)_inset,0_1px_1px_0_color(display-p3_1_1_1_/_0.25)_inset,0_8px_6px_0_color(display-p3_0_0_0_/_0.05)] backdrop-blur-[10px] bg-[color(display-p3_0.0667_0.0667_0.0667)] flex max-w-full w-80 flex-col flex-1 p-3 rounded-2xl">
+    <div id="calendar-card" className="justify-center items-stretch shadow-[0_-1px_1px_0_color(display-p3_1_1_1_/_0.10)_inset,0_1px_1px_0_color(display-p3_1_1_1_/_0.25)_inset,0_8px_6px_0_color(display-p3_0_0_0_/_0.05)] backdrop-blur-[10px] bg-[color(display-p3_0.0667_0.0667_0.0667)] flex max-w-full w-80 flex-col flex-1 p-3 rounded-2xl">
       <div className="w-full flex-1">
         <header className="w-full text-base text-white font-medium whitespace-nowrap pb-6">
           <div className="flex w-full items-center gap-2">

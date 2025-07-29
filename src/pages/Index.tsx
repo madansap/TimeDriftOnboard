@@ -182,7 +182,8 @@ const Index = () => {
                 
                 <div className="w-4/5 ml-2 sm:ml-5 max-md:w-full max-md:ml-0">
                   <div className="flex min-h-[898px] grow flex-col items-stretch justify-center pt-[72px] pb-56 px-2 sm:px-4 max-md:mt-10 max-md:pb-[100px]">
-                    {/* Main content area */}
+                    {/* Main content area - empty for now */}
+                    <div className="flex-1"></div>
                   </div>
                 </div>
               </div>
