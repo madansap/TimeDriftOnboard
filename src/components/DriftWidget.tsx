@@ -41,6 +41,7 @@ interface DriftWidgetProps {
 
 export const DriftWidget: React.FC<DriftWidgetProps> = ({ onClose }) => {
   const [isClosing, setIsClosing] = useState(false);
+  const [isVisible, setIsVisible] = useState(false);
   const [layoutMode, setLayoutMode] = useState<'standard' | 'zen'>('standard');
   const widgetRef = useRef<HTMLDivElement>(null);
 
@@ -87,12 +88,22 @@ export const DriftWidget: React.FC<DriftWidgetProps> = ({ onClose }) => {
     };
   }, []);
 
+  // Initialize slide-in animation
+  useEffect(() => {
+    // Trigger the slide-in animation after component mounts
+    const timer = setTimeout(() => {
+      setIsVisible(true);
+    }, 10);
+    
+    return () => clearTimeout(timer);
+  }, []);
+
   return (
     <div className="fixed inset-0 bg-black/50 backdrop-blur-sm z-50 flex justify-end">
       <div 
         ref={widgetRef}
-        className={`bg-[#111111] border-l border-[#202020] shadow-2xl w-full max-w-sm h-full overflow-y-auto transition-transform duration-300 ease-in-out ${
-          isClosing ? 'translate-x-full' : 'translate-x-0'
+        className={`bg-[#111111] border-l border-[#202020] shadow-2xl w-full max-w-sm h-full overflow-y-auto transition-all duration-500 ease-out ${
+          isClosing ? 'translate-x-full opacity-0' : isVisible ? 'translate-x-0 opacity-100' : 'translate-x-full opacity-0'
         }`}
       >
         <div className="p-4 flex flex-col gap-6 h-full">
@@ -119,39 +130,45 @@ export const DriftWidget: React.FC<DriftWidgetProps> = ({ onClose }) => {
             </div>
             
             {/* Layout Toggle */}
-            <div className="bg-[#181818] rounded-lg p-1 flex">
+            <div className="bg-[#181818] rounded-lg p-1 flex relative">
               <button 
                 onClick={toggleLayoutMode}
-                className={`flex-1 p-3 flex items-center justify-center gap-2 rounded-md transition-all ${
+                className={`flex-1 p-3 flex items-center justify-center gap-2 rounded-md transition-all duration-300 ease-out relative z-10 ${
                   layoutMode === 'standard' 
-                    ? 'bg-[#111111] border border-[#202020]' 
-                    : 'hover:bg-[#202020]'
+                    ? 'text-[#e5aa4f]' 
+                    : 'text-[#b3b3b3] hover:text-white'
                 }`}
               >
                 <CirclesFour 
-                  className={`w-4 h-4 ${layoutMode === 'standard' ? 'text-[#e5aa4f]' : 'text-[#b3b3b3]'}`} 
+                  className="w-4 h-4 transition-colors duration-300" 
                   weight="regular" 
                 />
-                <span className={`text-sm font-semibold ${layoutMode === 'standard' ? 'text-[#e5aa4f]' : 'text-[#b3b3b3]'}`}>
+                <span className="text-sm font-semibold transition-colors duration-300">
                   Standard
                 </span>
               </button>
               <button 
                 onClick={toggleLayoutMode}
-                className={`flex-1 p-3 flex items-center justify-center gap-2 rounded-md transition-all ${
+                className={`flex-1 p-3 flex items-center justify-center gap-2 rounded-md transition-all duration-300 ease-out relative z-10 ${
                   layoutMode === 'zen' 
-                    ? 'bg-[#111111] border border-[#202020]' 
-                    : 'hover:bg-[#202020]'
+                    ? 'text-[#e5aa4f]' 
+                    : 'text-[#b3b3b3] hover:text-white'
                 }`}
               >
                 <Flower 
-                  className={`w-4 h-4 ${layoutMode === 'zen' ? 'text-[#e5aa4f]' : 'text-[#b3b3b3]'}`} 
+                  className="w-4 h-4 transition-colors duration-300" 
                   weight="regular" 
                 />
-                <span className={`text-sm font-semibold ${layoutMode === 'zen' ? 'text-[#e5aa4f]' : 'text-[#b3b3b3]'}`}>
+                <span className="text-sm font-semibold transition-colors duration-300">
                   Zen Mode
                 </span>
               </button>
+              {/* Active background indicator */}
+              <div 
+                className={`absolute top-1 bottom-1 w-1/2 bg-[#111111] border border-[#202020] rounded-md transition-transform duration-300 ease-out ${
+                  layoutMode === 'zen' ? 'translate-x-full' : 'translate-x-0'
+                }`}
+              />
             </div>
           </div>
 
