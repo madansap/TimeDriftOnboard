@@ -1,17 +1,22 @@
 import React from 'react';
+import { Calendar, List, MusicNote, ChatCircle, SignIn } from '@phosphor-icons/react';
 
 interface HeaderProps {
   onCalendarToggle: () => void;
   onTaskToggle: () => void;
+  onMusicToggle: () => void;
   isCalendarOpen?: boolean;
   isTaskOpen?: boolean;
+  isMusicOpen?: boolean;
 }
 
 export const Header: React.FC<HeaderProps> = ({ 
   onCalendarToggle, 
   onTaskToggle, 
+  onMusicToggle,
   isCalendarOpen = false, 
-  isTaskOpen = false 
+  isTaskOpen = false,
+  isMusicOpen = false
 }) => {
   const handleSignIn = () => {
     console.log('Sign in clicked');
@@ -25,11 +30,7 @@ export const Header: React.FC<HeaderProps> = ({
           <div className="h-[38.06px] overflow-clip relative shrink-0 w-[145px]">
             <div className="absolute h-[38.06px] left-0 overflow-clip top-0 w-[145px]">
               <div className="absolute h-[38.072px] left-1/2 top-1/2 translate-x-[-50%] translate-y-[-50%] w-[145px]">
-                <img
-                  alt="Time Drift Logo"
-                  className="block max-w-none size-full"
-                  src="http://localhost:3845/assets/5b2d9f7da6ae662686a71e1677e7ba6748924f6a.svg"
-                />
+                <div className="text-white text-xl font-bold">Time Drift</div>
               </div>
             </div>
           </div>
@@ -39,20 +40,26 @@ export const Header: React.FC<HeaderProps> = ({
             {/* Left Button Group */}
             <div className="box-border content-stretch flex flex-row gap-2 items-center justify-start p-0 relative shrink-0">
               {/* First Button - Calendar */}
-              <button 
-                onClick={onCalendarToggle}
-                className={`relative rounded-[9999px] shrink-0 size-10 transition-colors ${
-                  isCalendarOpen 
-                    ? 'bg-[#202020] hover:bg-[#252525]' 
-                    : 'bg-[#181818] hover:bg-[#202020]'
-                }`}
-              >
-                <div className="absolute left-1/2 size-5 top-1/2 translate-x-[-50%] translate-y-[-50%]">
-                  <img alt="Calendar button" className="block max-w-none size-full" src="http://localhost:3845/assets/801c9d48ab54807c2002344b0d8e7f137ca530a6.svg" />
-                </div>
-              </button>
+              <div className="box-border content-stretch flex flex-col gap-1.5 items-center justify-center p-0 relative shrink-0 w-10">
+                <button 
+                  onClick={onCalendarToggle}
+                  className={`relative rounded-[9999px] shrink-0 size-10 transition-colors ${
+                    isCalendarOpen 
+                      ? 'bg-[#202020] hover:bg-[#252525]' 
+                      : 'bg-[#181818] hover:bg-[#202020]'
+                  }`}
+                >
+                  <div className="absolute left-1/2 size-5 top-1/2 translate-x-[-50%] translate-y-[-50%]">
+                    <Calendar className="w-5 h-5 text-white" weight="regular" />
+                  </div>
+                </button>
+                {/* Green dot indicator - show when calendar is selected */}
+                {isCalendarOpen && (
+                  <div className="absolute bg-green-500 left-1/2 transform -translate-x-1/2 rounded-[9999px] size-1.5 top-[46px]" />
+                )}
+              </div>
 
-              {/* Second Button - Task with Notification Indicator */}
+              {/* Second Button - Task */}
               <div className="box-border content-stretch flex flex-col gap-1.5 items-center justify-center p-0 relative shrink-0 w-10">
                 <button 
                   onClick={onTaskToggle}
@@ -63,25 +70,34 @@ export const Header: React.FC<HeaderProps> = ({
                   }`}
                 >
                   <div className="absolute left-1/2 size-5 top-1/2 translate-x-[-50%] translate-y-[-50%]">
-                    <img
-                      alt="Task button"
-                      className="block max-w-none size-full"
-                      src="http://localhost:3845/assets/17403234bc9472500d39bbd60712e383e9852d35.svg"
-                    />
+                    <List className="w-5 h-5 text-white" weight="regular" />
                   </div>
                 </button>
-                {/* Notification Indicator - show when task is selected */}
+                {/* Green dot indicator - show when task is selected */}
                 {isTaskOpen && (
-                  <div className="absolute bg-green-500 left-[-30.77px] rounded-[9999px] size-1.5 top-[46px]" />
+                  <div className="absolute bg-green-500 left-1/2 transform -translate-x-1/2 rounded-[9999px] size-1.5 top-[46px]" />
                 )}
               </div>
 
               {/* Third Button - Music */}
-              <button className="bg-[#181818] relative rounded-[9999px] shrink-0 size-10 hover:bg-[#202020] transition-colors">
-                <div className="absolute left-1/2 size-5 top-1/2 translate-x-[-50%] translate-y-[-50%]">
-                  <img alt="Music button" className="block max-w-none size-full" src="http://localhost:3845/assets/66a1a597d2925649177045d1f238ee4962c8a4c7.svg" />
-                </div>
-              </button>
+              <div className="box-border content-stretch flex flex-col gap-1.5 items-center justify-center p-0 relative shrink-0 w-10">
+                <button 
+                  onClick={onMusicToggle}
+                  className={`relative rounded-[9999px] shrink-0 size-10 transition-colors ${
+                    isMusicOpen 
+                      ? 'bg-[#202020] hover:bg-[#252525]' 
+                      : 'bg-[#181818] hover:bg-[#202020]'
+                  }`}
+                >
+                  <div className="absolute left-1/2 size-5 top-1/2 translate-x-[-50%] translate-y-[-50%]">
+                    <MusicNote className="w-5 h-5 text-white" weight="regular" />
+                  </div>
+                </button>
+                {/* Green dot indicator - show when music is selected */}
+                {isMusicOpen && (
+                  <div className="absolute bg-green-500 left-1/2 transform -translate-x-1/2 rounded-[9999px] size-1.5 top-[46px]" />
+                )}
+              </div>
             </div>
 
             {/* Vertical Border Separator */}
@@ -90,11 +106,7 @@ export const Header: React.FC<HeaderProps> = ({
               
               {/* Dialog Button */}
               <button className="relative shrink-0 size-10 hover:bg-[#202020] rounded-full transition-colors">
-                <img
-                  alt="Dialog button"
-                  className="block max-w-none size-full"
-                  src="http://localhost:3845/assets/b8397b36113b9c397e75422fa15ea040c64ef2ab.svg"
-                />
+                <ChatCircle className="w-5 h-5 text-white" weight="regular" />
               </button>
 
               {/* Sign In Button */}
@@ -104,7 +116,7 @@ export const Header: React.FC<HeaderProps> = ({
               >
                 <div className="absolute border border-[#181818] border-solid inset-0 pointer-events-none rounded-[9999px]" />
                 <div className="absolute left-[17px] size-[18px] top-1/2 translate-y-[-50%]">
-                  <img alt="Sign in icon" className="block max-w-none size-full" src="http://localhost:3845/assets/fd83e02621c956fa535b000a1dd9598e45fa8369.svg" />
+                  <SignIn className="w-4 h-4 text-white" weight="regular" />
                 </div>
                 <div
                   className="absolute flex flex-col font-['Inter:Medium',_sans-serif] font-medium h-5 justify-center leading-[0] not-italic text-[#ffffff] text-[12.688px] text-center top-[19px] translate-x-[-50%] translate-y-[-50%] w-[41.43px]"

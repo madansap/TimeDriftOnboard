@@ -1,4 +1,5 @@
 import React from 'react';
+import { Calendar, GoogleLogo } from '@phosphor-icons/react';
 
 export const CalendarWidget: React.FC = () => {
   const handleConnectCalendar = () => {
@@ -11,11 +12,7 @@ export const CalendarWidget: React.FC = () => {
       <div className="w-full flex-1">
         <header className="w-full text-base text-white font-medium whitespace-nowrap pb-6">
           <div className="flex w-full items-center gap-2">
-            <img
-              src="https://api.builder.io/api/v1/image/assets/ce880fcfdb934a18b6d97dead3ad8ee9/fbda976862459b931d95d5d0eab34e90289c86b5?placeholderIfAbsent=true"
-              className="aspect-[1] object-contain w-5 self-stretch shrink-0 my-auto"
-              alt="Calendar icon"
-            />
+            <Calendar className="w-5 h-5 text-white" weight="regular" />
             <h2>Calendar</h2>
           </div>
         </header>
@@ -23,11 +20,7 @@ export const CalendarWidget: React.FC = () => {
         <main className="flex w-full flex-col items-center py-12">
           <div className="self-stretch flex min-h-20 w-full flex-col items-center pb-4 px-[116px] max-md:px-5">
             <div className="justify-center items-center bg-[color(display-p3_0.0941_0.0941_0.0941)] flex min-h-16 w-16 h-16 rounded-full">
-              <img
-                src="https://api.builder.io/api/v1/image/assets/ce880fcfdb934a18b6d97dead3ad8ee9/6c43296bae4df7d0e4287ba2b6e4e496c6191623?placeholderIfAbsent=true"
-                className="aspect-[1] object-contain w-8 self-stretch my-auto"
-                alt="Calendar connection icon"
-              />
+              <Calendar className="w-8 h-8 text-white" weight="regular" />
             </div>
           </div>
           
@@ -48,11 +41,7 @@ export const CalendarWidget: React.FC = () => {
               className="justify-center items-center border border-[color(display-p3_0.1255_0.1255_0.1255)] bg-[color(display-p3_0.0941_0.0941_0.0941)] flex px-[17px] py-[11px] rounded-lg border-solid hover:bg-[color(display-p3_0.1255_0.1255_0.1255)] transition-colors"
             >
               <div className="self-stretch flex items-center gap-2 my-auto">
-                <img
-                  src="https://api.builder.io/api/v1/image/assets/ce880fcfdb934a18b6d97dead3ad8ee9/f7c014a860a8bd970c89476b88611a3fc3a90b74?placeholderIfAbsent=true"
-                  className="aspect-[1] object-contain w-4 self-stretch shrink-0 my-auto"
-                  alt="Google Calendar icon"
-                />
+                <GoogleLogo className="w-4 h-4 text-white" weight="regular" />
                 <span>Connect Google Calendar</span>
               </div>
             </button>
