@@ -45,9 +45,9 @@ export const DriftWidget: React.FC = () => {
   };
 
   return (
-    <div className="fixed inset-0 bg-black/50 backdrop-blur-sm flex items-center justify-center p-4 z-50">
-      <div className="bg-[#111111] border border-[#202020] rounded-2xl shadow-2xl w-full max-w-sm max-h-[90vh] overflow-y-auto">
-        <div className="p-4 flex flex-col gap-6">
+    <div className="fixed inset-0 bg-black/50 backdrop-blur-sm z-50 flex justify-end">
+      <div className="bg-[#111111] border-l border-[#202020] shadow-2xl w-full max-w-sm h-full overflow-y-auto animate-slide-in-right">
+        <div className="p-4 flex flex-col gap-6 h-full">
           {/* Header */}
           <div className="flex flex-col gap-2">
             <div className="flex items-center justify-between">
