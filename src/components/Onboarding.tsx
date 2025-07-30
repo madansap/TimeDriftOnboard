@@ -18,6 +18,32 @@ export const Onboarding: React.FC<OnboardingProps> = ({ isVisible, onComplete })
     }
   }, [isVisible]);
 
+  // Cleanup function to remove any remaining tour elements
+  const cleanupTour = () => {
+    if (driverRef.current) {
+      driverRef.current.destroy();
+    }
+    // Remove any remaining tour overlays
+    const tourOverlays = document.querySelectorAll('.driverjs-theme, .driver-overlay');
+    tourOverlays.forEach((overlay) => {
+      if (overlay.parentNode) {
+        overlay.parentNode.removeChild(overlay);
+      }
+    });
+    // Clear any highlighting
+    const highlightedElements = document.querySelectorAll('.tour-highlighted');
+    highlightedElements.forEach((element) => {
+      element.classList.remove('tour-highlighted');
+    });
+  };
+
+  // Cleanup on unmount
+  useEffect(() => {
+    return () => {
+      cleanupTour();
+    };
+  }, []);
+
   const handleGetStarted = () => {
     setIsIntroVisible(false);
     
@@ -81,10 +107,19 @@ export const Onboarding: React.FC<OnboardingProps> = ({ isVisible, onComplete })
         popoverClass: 'driverjs-theme',
         onDestroyStarted: () => {
           console.log('Step 2 completed');
-          // Show final step after driver completes
-          setTimeout(() => {
-            setIsFinalStepVisible(true);
-          }, 300);
+          // Force destroy the driver instance
+          if (driverRef.current) {
+            driverRef.current.destroy();
+          }
+          // Clear any remaining tour overlays
+          const tourOverlays = document.querySelectorAll('.driverjs-theme, .driver-overlay');
+          tourOverlays.forEach((overlay) => {
+            if (overlay.parentNode) {
+              overlay.parentNode.removeChild(overlay);
+            }
+          });
+          // Show final step immediately
+          setIsFinalStepVisible(true);
         },
         onHighlightStarted: (element) => {
           console.log('Highlight started', element);
@@ -262,6 +297,8 @@ export const Onboarding: React.FC<OnboardingProps> = ({ isVisible, onComplete })
 
   const handleFinalStepComplete = () => {
     setIsFinalStepVisible(false);
+    // Ensure tour is completely cleaned up
+    cleanupTour();
     onComplete();
   };
 
