@@ -302,12 +302,12 @@ export const Onboarding: React.FC<OnboardingProps> = ({ isVisible, onComplete })
     onComplete();
   };
 
-  // Auto-dismiss final step after 3 seconds
+  // Auto-dismiss final step after 1.5 seconds
   useEffect(() => {
     if (isFinalStepVisible) {
       const timer = setTimeout(() => {
         handleFinalStepComplete();
-      }, 3000);
+      }, 1500);
       
       return () => clearTimeout(timer);
     }
