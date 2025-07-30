@@ -302,6 +302,17 @@ export const Onboarding: React.FC<OnboardingProps> = ({ isVisible, onComplete })
     onComplete();
   };
 
+  // Auto-dismiss final step after 3 seconds
+  useEffect(() => {
+    if (isFinalStepVisible) {
+      const timer = setTimeout(() => {
+        handleFinalStepComplete();
+      }, 3000);
+      
+      return () => clearTimeout(timer);
+    }
+  }, [isFinalStepVisible]);
+
   if (!isVisible) return null;
 
   return (
@@ -333,15 +344,9 @@ export const Onboarding: React.FC<OnboardingProps> = ({ isVisible, onComplete })
             <h2 className="text-4xl font-bold text-white mb-4">
               Enjoy your day with Timedrift
             </h2>
-            <p className="text-white text-lg leading-relaxed mb-10">
+            <p className="text-white text-lg leading-relaxed">
               Everything you need is already here.
             </p>
-            <button
-              onClick={handleFinalStepComplete}
-              className="bg-transparent border border-white text-white px-8 py-3 rounded-lg font-medium transition-all hover:bg-white hover:text-black"
-            >
-              Get Started
-            </button>
           </div>
         </div>
       )}
