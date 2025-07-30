@@ -99,10 +99,10 @@ export const DriftWidget: React.FC<DriftWidgetProps> = ({ onClose }) => {
   }, []);
 
   return (
-    <div className="fixed inset-0 bg-black/50 backdrop-blur-sm z-50 flex justify-end">
+    <div className="fixed inset-0 bg-black/50 backdrop-blur-sm z-[9999]">
       <div 
         ref={widgetRef}
-        className={`bg-[#111111] border-l border-[#202020] shadow-2xl w-full max-w-sm h-full overflow-y-auto transition-all duration-500 ease-out ${
+        className={`absolute right-0 top-0 bg-[#111111] border-l border-[#202020] shadow-2xl w-full max-w-sm h-full overflow-y-auto transition-all duration-500 ease-out ${
           isClosing ? 'translate-x-full opacity-0' : isVisible ? 'translate-x-0 opacity-100' : 'translate-x-full opacity-0'
         }`}
       >
@@ -129,47 +129,47 @@ export const DriftWidget: React.FC<DriftWidgetProps> = ({ onClose }) => {
               <span className="text-[#747474] text-xs">Press space to toggle</span>
             </div>
             
-            {/* Layout Toggle */}
-            <div className="bg-[#181818] rounded-lg p-1 flex relative">
-              <button 
-                onClick={toggleLayoutMode}
-                className={`flex-1 p-3 flex items-center justify-center gap-2 rounded-md transition-all duration-300 ease-out relative z-10 ${
-                  layoutMode === 'standard' 
-                    ? 'text-[#e5aa4f]' 
-                    : 'text-[#b3b3b3] hover:text-white'
-                }`}
-              >
-                <CirclesFour 
-                  className="w-4 h-4 transition-colors duration-300" 
-                  weight="regular" 
-                />
-                <span className="text-sm font-semibold transition-colors duration-300">
-                  Standard
-                </span>
-              </button>
-              <button 
-                onClick={toggleLayoutMode}
-                className={`flex-1 p-3 flex items-center justify-center gap-2 rounded-md transition-all duration-300 ease-out relative z-10 ${
-                  layoutMode === 'zen' 
-                    ? 'text-[#e5aa4f]' 
-                    : 'text-[#b3b3b3] hover:text-white'
-                }`}
-              >
-                <Flower 
-                  className="w-4 h-4 transition-colors duration-300" 
-                  weight="regular" 
-                />
-                <span className="text-sm font-semibold transition-colors duration-300">
-                  Zen Mode
-                </span>
-              </button>
-              {/* Active background indicator */}
-              <div 
-                className={`absolute top-1 bottom-1 w-1/2 bg-[#111111] border border-[#202020] rounded-md transition-transform duration-300 ease-out ${
-                  layoutMode === 'zen' ? 'translate-x-full' : 'translate-x-0'
-                }`}
-              />
-            </div>
+                         {/* Layout Toggle */}
+             <div className="bg-[#111111] border border-[#202020] rounded-lg p-1 flex relative">
+               <button 
+                 onClick={toggleLayoutMode}
+                 className={`flex-1 p-3 flex items-center justify-center gap-2 rounded-md transition-all duration-500 ease-in-out relative z-10 ${
+                   layoutMode === 'standard' 
+                     ? 'text-[#e5aa4f] bg-[#181818] shadow-sm' 
+                     : 'text-[#b3b3b3] hover:text-white'
+                 }`}
+               >
+                 <div className="flex items-center gap-2">
+                   <div className="grid grid-cols-2 gap-0.5">
+                     <div className={`w-1.5 h-1.5 rounded-full transition-all duration-500 ease-in-out ${layoutMode === 'standard' ? 'bg-[#e5aa4f] scale-110' : 'bg-[#b3b3b3]'}`}></div>
+                     <div className={`w-1.5 h-1.5 rounded-full transition-all duration-500 ease-in-out ${layoutMode === 'standard' ? 'bg-[#e5aa4f] scale-110' : 'bg-[#b3b3b3]'}`}></div>
+                     <div className={`w-1.5 h-1.5 rounded-full transition-all duration-500 ease-in-out ${layoutMode === 'standard' ? 'bg-[#e5aa4f] scale-110' : 'bg-[#b3b3b3]'}`}></div>
+                     <div className={`w-1.5 h-1.5 rounded-full transition-all duration-500 ease-in-out ${layoutMode === 'standard' ? 'bg-[#e5aa4f] scale-110' : 'bg-[#b3b3b3]'}`}></div>
+                   </div>
+                   <span className="text-sm font-semibold transition-all duration-500 ease-in-out">
+                     Standard
+                   </span>
+                 </div>
+               </button>
+               <button 
+                 onClick={toggleLayoutMode}
+                 className={`flex-1 p-3 flex items-center justify-center gap-2 rounded-md transition-all duration-500 ease-in-out relative z-10 ${
+                   layoutMode === 'zen' 
+                     ? 'text-[#e5aa4f] bg-[#181818] shadow-sm' 
+                     : 'text-[#b3b3b3] hover:text-white'
+                 }`}
+               >
+                 <div className="flex items-center gap-2">
+                   <Flower 
+                     className={`w-4 h-4 transition-all duration-500 ease-in-out ${layoutMode === 'zen' ? 'text-[#e5aa4f] scale-110' : 'text-[#b3b3b3]'}`} 
+                     weight="regular" 
+                   />
+                   <span className="text-sm font-semibold transition-all duration-500 ease-in-out">
+                     Zen Mode
+                   </span>
+                 </div>
+               </button>
+             </div>
           </div>
 
           {/* Drift Seasons Section */}
